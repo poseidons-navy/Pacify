@@ -1,6 +1,3 @@
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { StudentSignUpForm } from "./_components/student-sign-up";
 export default function StudentSignUpPage() {
   return (
     <div className="">
@@ -19,42 +17,7 @@ export default function StudentSignUpPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="Enter the student email address"
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                type="text"
-                name="name"
-                placeholder="Enter the full name"
-                required
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="reg_no">Registration Number</Label>
-              <Input
-                id="reg_no"
-                type="text"
-                name="reg_no"
-                placeholder="Enter the registration number"
-                required
-              />
-            </div>
-            <Button type="submit" className="w-full">
-              Create an account
-            </Button>
-          </div>
+          <StudentSignUpForm />
         </CardContent>
       </Card>
     </div>
