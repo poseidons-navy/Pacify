@@ -21,6 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { createStudentAccount } from "../../../../../server-actions/creations";
 
 const formSchema = z.object({
   email: z.string({ required_error: "Please input an email value." }).email(),
@@ -40,7 +41,14 @@ const StudentSignUpForm = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       //submit data
-
+      //REFACTOR THIS .
+      await createStudentAccount(
+        values.email,
+        values.name,
+        values.registrationNumber,
+        values.universityName,
+        values.courseName,
+      );
       toast.success("Student account has been created successfully");
     } catch (error) {
       toast.error("Unable to create the account");
