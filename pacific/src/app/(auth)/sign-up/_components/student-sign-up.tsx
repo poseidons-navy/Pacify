@@ -1,5 +1,4 @@
 "use client";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,12 +19,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { createStudentAccount } from "../../../../../server-actions/creations";
 
 const formSchema = z.object({
   email: z.string({ required_error: "Please input an email value." }).email(),
-  name: z.string(),
+  name: z.string().min(2).max(50),
   registrationNumber: z
     .string()
     .min(10, { message: "Invalid registration number" }),
@@ -36,6 +36,13 @@ const formSchema = z.object({
 const StudentSignUpForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      name: "",
+      registrationNumber: "",
+      universityName: "",
+      courseName: "",
+    },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -50,6 +57,13 @@ const StudentSignUpForm = () => {
         values.courseName,
       );
       toast.success("Student account has been created successfully");
+      form.reset({
+        email: "",
+        name: "",
+        registrationNumber: "",
+        courseName: "",
+        universityName: "",
+      });
     } catch (error) {
       toast.error("Unable to create the account");
     }
@@ -74,16 +88,6 @@ const StudentSignUpForm = () => {
               </FormItem>
             )}
           />
-          <div className="grid gap-2">
-            <Label htmlFor="name">Name</Label>
-            <Input
-              id="name"
-              type="text"
-              name="name"
-              placeholder="Enter the full name"
-              required
-            />
-          </div>
           <FormField
             control={form.control}
             name="name"
@@ -102,13 +106,14 @@ const StudentSignUpForm = () => {
             name="registrationNumber"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Registration Number</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter the registration Number"
                     {...field}
                   />
                 </FormControl>
+                <FormDescription>Don&apos;t put any slashes \</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -118,7 +123,7 @@ const StudentSignUpForm = () => {
             name="universityName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>University Name</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter the name of the university"
