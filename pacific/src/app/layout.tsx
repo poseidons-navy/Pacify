@@ -3,7 +3,7 @@ import { Poppins } from "next/font/google";
 import { siteConfig } from "../../config/site-config";
 import { Toaster } from "sonner";
 import "./globals.css";
-
+import CustomProvider from "./provider";
 const poppins = Poppins({
   variable: "--font-poppins",
   weight: ["300", "400", "500", "700", "900"],
@@ -23,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable}`}>
+        <CustomProvider>
         {children}
+        </CustomProvider>
         <Toaster />
       </body>
     </html>
