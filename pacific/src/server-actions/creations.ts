@@ -1,14 +1,19 @@
 "use server";
 import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "../src/db/firebase";
-
-export async function createTeachingInstitution(
-  name: string,
-  wallet_address: string,
+import { db } from "@/db/firebase";
+import z from "zod";
+import {
+  connectWalletSchema,
+  createStudentSchema,
+} from "@/validation/students";
+import { createAdminSchema } from "@/validation/admin";
+export async function createAdminAccount(
+  values: z.infer<typeof createAdminSchema>,
 ): Promise<void> {
+  const { name, walletAddress } = values;
   try {
     await setDoc(doc(db, "teaching-institution", name), {
-      wallet_address,
+      walletAddress,
     });
   } catch (err) {
     console.log(err, "OHH SHIT");
@@ -32,13 +37,16 @@ export async function createCourse(
 }
 
 export async function createStudentAccount(
-  email: string,
+  /*email: string,
   name: string,
   registrationNumber: string,
   universityName: string,
-  courseName: string,
+  courseName: string,*/
+  values: z.infer<typeof createStudentSchema>,
 ): Promise<void> {
   try {
+    const { email, name, registrationNumber, universityName, courseName } =
+      values;
     const password = "someRandomBS";
     await setDoc(doc(db, "students", registrationNumber), {
       email,
@@ -78,12 +86,12 @@ export async function assignCertificate(
 }
 
 export async function addStudentWalletToDB(
-  student_reg_number: string,
-  wallet_address: string,
+  values: z.infer<typeof connectWalletSchema>,
 ): Promise<void> {
+  const { walletAddress, registrationNumber } = values;
   try {
-    await updateDoc(doc(db, "students", student_reg_number), {
-      wallet_address,
+    await updateDoc(doc(db, "students", registrationNumber), {
+      walletAddress,
     });
   } catch (err) {
     console.log(err, "OHH SHIT");
