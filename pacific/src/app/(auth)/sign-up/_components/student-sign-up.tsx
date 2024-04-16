@@ -21,8 +21,8 @@ import {
   FormMessage,
   FormDescription,
 } from "@/components/ui/form";
-import { createStudentAccount } from "../../../../../server-actions/creations";
-
+import { createStudentAccount } from "@/server-actions/creations";
+import { createStudentSchema } from "@/validation/students";
 const formSchema = z.object({
   email: z.string({ required_error: "Please input an email value." }).email(),
   name: z.string().min(2).max(50),
@@ -34,7 +34,7 @@ const formSchema = z.object({
 });
 
 const StudentSignUpForm = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<z.infer<typeof createStudentSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -47,15 +47,7 @@ const StudentSignUpForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      //submit data
-      //REFACTOR THIS .
-      await createStudentAccount(
-        values.email,
-        values.name,
-        values.registrationNumber,
-        values.universityName,
-        values.courseName,
-      );
+      await createStudentAccount(values);
       toast.success("Student account has been created successfully");
       form.reset({
         email: "",

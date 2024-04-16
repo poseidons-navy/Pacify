@@ -1,8 +1,9 @@
 "use server";
 import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "../src/db/firebase";
-
-export async function createTeachingInstitution(
+import { db } from "@/db/firebase";
+import z from "zod";
+import { createStudentSchema } from "@/validation/students";
+export async function createAdminAccount(
   name: string,
   wallet_address: string,
 ): Promise<void> {
@@ -32,13 +33,16 @@ export async function createCourse(
 }
 
 export async function createStudentAccount(
-  email: string,
+  /*email: string,
   name: string,
   registrationNumber: string,
   universityName: string,
-  courseName: string,
+  courseName: string,*/
+  values: z.infer<typeof createStudentSchema>,
 ): Promise<void> {
   try {
+    const { email, name, registrationNumber, universityName, courseName } =
+      values;
     const password = "someRandomBS";
     await setDoc(doc(db, "students", registrationNumber), {
       email,
