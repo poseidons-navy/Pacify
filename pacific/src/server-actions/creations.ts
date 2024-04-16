@@ -2,14 +2,18 @@
 import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/db/firebase";
 import z from "zod";
-import { createStudentSchema } from "@/validation/students";
+import {
+  connectWalletSchema,
+  createStudentSchema,
+} from "@/validation/students";
+import { createAdminSchema } from "@/validation/admin";
 export async function createAdminAccount(
-  name: string,
-  wallet_address: string,
+  values: z.infer<typeof createAdminSchema>,
 ): Promise<void> {
+  const { name, walletAddress } = values;
   try {
     await setDoc(doc(db, "teaching-institution", name), {
-      wallet_address,
+      walletAddress,
     });
   } catch (err) {
     console.log(err, "OHH SHIT");
@@ -82,12 +86,12 @@ export async function assignCertificate(
 }
 
 export async function addStudentWalletToDB(
-  student_reg_number: string,
-  wallet_address: string,
+  values: z.infer<typeof connectWalletSchema>,
 ): Promise<void> {
+  const { walletAddress, registrationNumber } = values;
   try {
-    await updateDoc(doc(db, "students", student_reg_number), {
-      wallet_address,
+    await updateDoc(doc(db, "students", registrationNumber), {
+      walletAddress,
     });
   } catch (err) {
     console.log(err, "OHH SHIT");
