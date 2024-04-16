@@ -16,7 +16,7 @@ export const CardForm = ({
   description: string;
 }) => {
   return (
-    <Card className="max-w-md  mt-10">
+    <Card className="max-w-md mt-20">
       <CardHeader>
         <CardTitle className="text-xl">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
