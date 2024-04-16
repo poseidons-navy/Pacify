@@ -22,6 +22,7 @@ export const WalletPopover = ({
   sideOffset,
 }: WalletPopoverProps) => {
   const closeRef = useRef<ElementRef<"button">>(null);
+
   return (
     <Popover>
       <PopoverTrigger asChild>{children}</PopoverTrigger>

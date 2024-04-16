@@ -6,9 +6,9 @@ import {
   connectWalletSchema,
   createStudentSchema,
 } from "@/validation/students";
-import { createAdminSchema } from "@/validation/admin";
-export async function createAdminAccount(
-  values: z.infer<typeof createAdminSchema>,
+import { createInstitutionSchema } from "@/validation/institution";
+export async function createTeachingInstitution(
+  values: z.infer<typeof createInstitutionSchema>,
 ): Promise<void> {
   const { name, walletAddress } = values;
   try {
@@ -37,11 +37,6 @@ export async function createCourse(
 }
 
 export async function createStudentAccount(
-  /*email: string,
-  name: string,
-  registrationNumber: string,
-  universityName: string,
-  courseName: string,*/
   values: z.infer<typeof createStudentSchema>,
 ): Promise<void> {
   try {
