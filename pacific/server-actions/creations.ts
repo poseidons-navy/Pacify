@@ -2,7 +2,7 @@
 import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../src/db/firebase";
 
-export async function createTeachingInstitution(
+export async function createAdminAccount(
   name: string,
   wallet_address: string,
 ): Promise<void> {
