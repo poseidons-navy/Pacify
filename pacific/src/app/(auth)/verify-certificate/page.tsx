@@ -1,13 +1,14 @@
 "use client";
-import BookDetails from '@/components/book-details'
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input'
-import { getcertificates } from '@/server/certificates';
+//import { getcertificates } from '@/server-actions/certificates';
 import { Search } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
+//import { Certificate, Admin } from '@prisma/client';
+import DashboardTopBar from '@/components/topbar/page';
 
 function VerifyCertificate() {
-  const [{ data, loading }, setPublications] = useState<{ data: Array<Publication & { creator: User | null }>, loading: boolean }>({
+  const [{ data, loading }, setcertificates] = useState<{ data: Array<Certificate & { creator: Admin | null }>, loading: boolean }>({
     data: [],
     loading: false
   })
@@ -23,19 +24,19 @@ function VerifyCertificate() {
 
 
   const loadStoreData = async (search?: any) => {
-    setPublications((prev)=>{
+    setcertificates((prev)=>{
       return {
         ...prev,
         loading: true
       }
     })
     try {
-      const publications = await getPurchasedBooks(search)
+      const certificates = await getcertificates(search)
 
-      setPublications((prev)=>{
+      setcertificates((prev)=>{
         return {
           ...prev,
-          data: publications
+          data: certificates
         }
       })
     }
@@ -45,7 +46,7 @@ function VerifyCertificate() {
     }
     finally
     {
-      setPublications((prev)=>{
+      setcertificates((prev)=>{
         return {
           ...prev,
           loading: false
@@ -62,23 +63,25 @@ function VerifyCertificate() {
   }, [])
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-start gap-y-4">
+    <><DashboardTopBar />
+    <div className=" w-full h-full flex flex-col items-center justify-start gap-y-4 ">
+        
         <div className="flex flex-row items-center justify-between w-full gap-x-3">
-          <Input onChange={(e)=> setSearch(e.target.value)} placeholder='Search by book title or @the-author-username' /> 
+          <Input onChange={(e)=> setSearch(e.target.value)} placeholder='Search for certificate by serial number...' /> 
           <Button onClick={handleSearch} >
             <Search/>
           </Button>
         </div>
         <p className='w-full text-left' >
-          You have a good eye for quality books :)
+          The certificate will be displayed below :)
         </p>
         <div className="flex flex-col w-full items-center gap-y-5">
         {
-          data?.map((publication, i)=> {
+          data?.map((certificates, i)=> {
             return  (
-              <BookDetails
+              <CertificateDetails
                 key={i}
-                publication={publication}
+                publication={certificates}
                 showRead={true}
               />
             )
@@ -86,7 +89,8 @@ function VerifyCertificate() {
         }
       </div>
     </div>
+    </>
   )
 }
 
-export default verifyCertificate
+export default VerifyCertificate
