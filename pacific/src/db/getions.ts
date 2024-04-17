@@ -16,14 +16,7 @@ export async function getUserDataFromLogin(wallet_address: string): Promise<Stud
             if (querySnapshot2.size === 0) {
                 throw "Account With Wallet Does Not Exist"
             } else {
-                const studentDataDoc = querySnapshot2.docs[0];
-                const studentData = studentDataDoc.data();
-                return new StudentAccount(
-                    studentDataDoc.id, 
-                    studentData.university_name, 
-                    studentData.course_name,
-                    studentData.name
-                )
+                return StudentAccount.fromFirebaseDocument(querySnapshot2.docs[0]);
             }
         } else {
             const institutionDoc = querySnapshot.docs[0];
@@ -85,5 +78,39 @@ export async function searchForCertificate(serial_number: string, university_nam
     } catch(err) {
         console.log(err, "OHH SHIT");
         throw "Could Not Search For Certificate";
+    }
+}
+
+export async function getCourseNamesForUniversity(university_name: string): Promise<string[]> {
+    try {
+        const q = query(collection(db, "course"), where("university", "==", university_name));
+        const querySnapshot = await getDocs(q);
+        let course_names: string[] = [];
+
+        querySnapshot.forEach(doc => {
+            course_names.push(doc.data().name);
+        })
+
+        return course_names;
+    } catch(err) {
+        console.log(err, "OHH SHIT");
+        throw "Could Not Get Courses";
+    }
+}
+
+export async function getStudentsForAUniversity(university_name: string): Promise<StudentAccount[]> {
+    try {
+        const q = query(collection(db, "students"), where("universityName", "==", university_name));
+        const querySnapshot = await getDocs(q);
+
+        let students: StudentAccount[] = [];
+        querySnapshot.forEach(doc => {
+            students.push(StudentAccount.fromFirebaseDocument(doc))
+        });
+
+        return students;
+    } catch(err) {
+        console.log(err, "OHH SHIT");
+        throw `Could Not Get Students Of ${university_name}`
     }
 }

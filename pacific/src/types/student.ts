@@ -11,4 +11,14 @@ export class StudentAccount {
         this.course_name = course_name;
         this.name = name;
     }
+
+    static fromFirebaseDocument(doc: DocumentData): StudentAccount {
+        const studentData = doc.data();
+        return new StudentAccount(
+            doc.id, 
+            studentData.university_name, 
+            studentData.course_name,
+            studentData.name
+        );
+    }
 }
