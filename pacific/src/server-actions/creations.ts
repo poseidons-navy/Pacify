@@ -1,6 +1,10 @@
 "use server";
 import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/db/firebase";
+
+import { createInstitutionSchema } from "@/validation/institution";
+
+
 import z from "zod";
 import {
   connectWalletSchema,
@@ -23,7 +27,7 @@ export async function createTeachingInstitution(
 
 export async function createCourse(
   name: string,
-  university: string,
+  university: string
 ): Promise<void> {
   try {
     await addDoc(collection(db, "course"), {
@@ -35,6 +39,9 @@ export async function createCourse(
     throw "Could Not Create Course";
   }
 }
+
+
+export async function createStudentAccount(
 
 export async function createStudentAccount(
   values: z.infer<typeof createStudentSchema>,
