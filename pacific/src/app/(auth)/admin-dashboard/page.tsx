@@ -74,7 +74,7 @@ function AdminPage() {
     (async () => {
       loadStoreData();
     })();
-  }, [loadStoreData]);
+  }, []);
 
   return (
     <>
