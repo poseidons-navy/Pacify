@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 import DashboardTopBar from '@/components/topbar/page';
 //import CertificateDetails from '@/components/certificate-details';
 
+
 function VerifyCertificate() {
   const [{ data, loading }, setcertificates] = useState<{ data: Array<Certificate & { creator: Admin | null }>, loading: boolean }>({
     data: [],
