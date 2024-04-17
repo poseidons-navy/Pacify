@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/form";
 import { createStudentAccount } from "@/server-actions/creations";
 import { createStudentSchema } from "@/validation/students";
+import { universityCourses } from "@/constants/courses";
 
 const StudentSignUpForm = () => {
   const form = useForm<z.infer<typeof createStudentSchema>>({
@@ -35,7 +36,6 @@ const StudentSignUpForm = () => {
       courseName: "",
     },
   });
-  
 
   const onSubmit = async (values: z.infer<typeof createStudentSchema>) => {
     try {
@@ -134,14 +134,11 @@ const StudentSignUpForm = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {/*TO DO : MAP A LIST OF OPTIONS*/}
-                    <SelectItem value="Computer science">
-                      Computer Science
-                    </SelectItem>
-                    <SelectItem value="Electrical Engineering">
-                      Electrical Engineering
-                    </SelectItem>
-                    <SelectItem value="Law">Law</SelectItem>
+                    {universityCourses.map((course, index) => (
+                      <SelectItem key={index} value={course}>
+                        {course}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
