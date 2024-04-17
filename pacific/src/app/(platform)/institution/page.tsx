@@ -6,7 +6,7 @@ export default function CreateInstitutionPage() {
     <div className="flex justify-center   h-full ">
       <CardForm
         title="
-      Create Teaching Institution
+      Create Institution
       "
         description="
       Enter the name of the institution and connect your wallet

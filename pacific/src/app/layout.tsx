@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { siteConfig } from "../../config/site-config";
 import { Toaster } from "sonner";
+import { AppBar } from "@/components/app-bar";
 import "./globals.css";
 import CustomProvider from "./provider";
 const poppins = Poppins({
@@ -24,7 +25,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable}`}>
         <CustomProvider>
-        {children}
+          <AppBar />
+          {children}
         </CustomProvider>
         <Toaster />
       </body>
