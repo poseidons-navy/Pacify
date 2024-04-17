@@ -3,36 +3,11 @@ import BackButton from '@/components/back-button'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input, Textarea } from '@/components/ui/input'
-// import { useToast } from '@/components/ui/use-toast'
-//import { UploadDropzone } from '@/lib/uploadthing'
-// import { createCertificate } from ''
 import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { z } from 'zod'
-
-
-// Algorand stuff
-// import algosdk from 'algosdk'
-// import { 
-//     algorandConfig, 
-//     CertificateAppNote,
-//     numLocalBytes,
-//     numGlobalBytes,
-//     numGlobalInts,
-//     numLocalInts,
-//  } from '@/algorand/constants'
-
-//const algodClient = new algosdk.Algodv2(algorandConfig.algodToken, algorandConfig.algodServer, algorandConfig.algodPort)
-
-// Compile smart contract in .teal format to program
-// const compileProgram = async (programSource: any) => {
-//     let encoder = new TextEncoder();
-//     let programBytes = encoder.encode(programSource);
-//     let compileResponse = await algodClient.compile(programBytes).do();
-//     return new Uint8Array(Buffer.from(compileResponse.result, "base64"));
-// }
 
 
 const formSchema = z.object({
@@ -178,7 +153,6 @@ function CreateStore() {
                                             The Certificate PDF/Image <i>(file should not exceed 4MB)</i>
                                         </FormLabel>
                                         <FormControl>
-                                            {/* <Textarea {...field} placeholder='Description' className='h-[100px]' /> */}
                                             {/* <UploadDropzone
                                                 endpoint='imageUploader'
                                                 onClientUploadComplete={(uploads) => {

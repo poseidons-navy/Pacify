@@ -3,8 +3,6 @@ import Image from 'next/image'
 import React from 'react'
 import { Button } from '../ui/button'
 import { FileEdit, MessageCircle } from 'lucide-react'
-import { Publication, User } from '@prisma/client'
-import Interactions from './interactions'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 
