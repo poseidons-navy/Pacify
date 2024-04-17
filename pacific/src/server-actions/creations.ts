@@ -1,8 +1,17 @@
 "use server";
 import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/db/firebase";
-//import { createInstitutionSchema } from "@/validation/institution";
-/*export async function createTeachingInstitution(
+
+import { createInstitutionSchema } from "@/validation/institution";
+
+
+import z from "zod";
+import {
+  connectWalletSchema,
+  createStudentSchema,
+} from "@/validation/students";
+import { createInstitutionSchema } from "@/validation/institution";
+export async function createTeachingInstitution(
   values: z.infer<typeof createInstitutionSchema>,
 ): Promise<void> {
   const { name, walletAddress } = values;
@@ -14,7 +23,7 @@ import { db } from "@/db/firebase";
     console.log(err, "OHH SHIT");
     throw "Could Not Create Teaching Institution";
   }
-}*/
+}
 
 export async function createCourse(
   name: string,
@@ -31,7 +40,10 @@ export async function createCourse(
   }
 }
 
-/*export async function createStudentAccount(
+
+export async function createStudentAccount(
+
+export async function createStudentAccount(
   values: z.infer<typeof createStudentSchema>,
 ): Promise<void> {
   try {
@@ -52,9 +64,9 @@ export async function createCourse(
     console.log(err, "OHH SHIT");
     throw "Could Not Create Student Account";
   }
-}*/
+}
 
-/*export async function assignCertificate(
+export async function assignCertificate(
   course_name: string,
   university_name: string,
   student_reg_number: string,
@@ -73,9 +85,9 @@ export async function createCourse(
     console.log(err, "OHH SHIT");
     throw "Could Not Assign Certificate";
   }
-}*/
+}
 
-/*export async function addStudentWalletToDB(
+export async function addStudentWalletToDB(
   values: z.infer<typeof connectWalletSchema>,
 ): Promise<void> {
   const { walletAddress, registrationNumber } = values;
@@ -87,4 +99,4 @@ export async function createCourse(
     console.log(err, "OHH SHIT");
     throw "Could Not Add Student's Wallet";
   }
-}*/
+}

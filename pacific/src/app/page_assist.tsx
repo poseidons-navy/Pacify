@@ -44,7 +44,7 @@ export default function PageAssist() {
               Set Active
             </Button>
 
-            <div>
+            <div className="hidden">
               {provider.isActive && provider.accounts.length && (
                 <select
                   value={activeAccount?.address}

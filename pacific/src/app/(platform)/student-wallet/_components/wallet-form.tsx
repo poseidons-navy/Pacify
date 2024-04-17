@@ -29,13 +29,13 @@ const ConnectWalletForm = () => {
   const onSubmit = async (values: z.infer<typeof connectWalletSchema>) => {
     try {
       await addStudentWalletToDB(values);
-      toast.success("Student account has been created successfully");
+      toast.success(" Successfully added");
       form.reset({
         registrationNumber: "",
         walletAddress: "",
       });
     } catch (error) {
-      toast.error("Unable to create the account");
+      toast.error("Something went wrong");
     }
   };
   return (

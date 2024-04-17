@@ -10,6 +10,9 @@ import { useRouter } from "next/navigation";
 //import { LocalStorageKeys } from './helpers/local_storage_keys'
 // import {AppContext} from './app-context'
 
+import PageAssist from "./page_assist";
+import Test from "./test";
+
 export default function Home() {
   const router = useRouter();
 
@@ -31,6 +34,7 @@ export default function Home() {
   const handleSignIn = async () => {};
 
   return (
+
     <main className="flex min-h-screen flex-col items-center justify-center p-24 space-y-10">
       <div className="flex flex-col w-full items-center justify-center gap-y-3">
         <h2 className="font-semibold text-2xl">Welcome to Pacify.</h2>
@@ -55,6 +59,7 @@ export default function Home() {
             height={200}
             alt="denv"
           />
+
         </div>
       </div>
       <div className="flex flex-row items-center justify-center">
