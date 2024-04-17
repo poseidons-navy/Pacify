@@ -6,6 +6,7 @@ import { Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import DashboardTopBar from "@/components/topbar/page";
 
+
 function VerifyCertificate() {
   const [{ data, loading }, setcertificates] = useState<{
     data: Array<Certificate & { creator: Admin | null }>;

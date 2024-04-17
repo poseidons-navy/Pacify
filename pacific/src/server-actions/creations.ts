@@ -8,8 +8,16 @@ import {
   createStudentSchema,
 } from "@/validation/students";
 import { createInstitutionSchema } from "@/validation/institution";
+
+interface CreateTeachingInstitution {
+  name: string,
+  walletAddress: string,
+  asset_index: number,
+  transaction_hash: string
+}
+
 export async function createTeachingInstitution(
-  values: z.infer<typeof createInstitutionSchema>,
+  values: CreateTeachingInstitution,
 ): Promise<void> {
   const { name, walletAddress, asset_index, transaction_hash } = values;
   try {
@@ -39,8 +47,18 @@ export async function createCourse(
   }
 }
 
+interface CreateStudentAccount {
+  email: string,
+  name: string, 
+  registrationNumber: string,
+  universityName: string,
+  courseName: string,
+  asset_index: number,
+  transaction_hash: string
+}
+
 export async function createStudentAccount(
-  values: z.infer<typeof createStudentSchema>,
+  values: CreateStudentAccount,
 ): Promise<void> {
   try {
     const {

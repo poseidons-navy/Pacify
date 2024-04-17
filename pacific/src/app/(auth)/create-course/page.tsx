@@ -3,36 +3,12 @@ import BackButton from '@/components/back-button'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input, Textarea } from '@/components/ui/input'
-// import { useToast } from '@/components/ui/use-toast'
-//import { UploadDropzone } from '@/lib/uploadthing'
-// import { createCertificate } from ''
 import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-
 import { z } from 'zod'
-
-
-// Algorand stuff
-// import algosdk from 'algosdk'
-// import { 
-//     algorandConfig, 
-//     CertificateAppNote,
-//     numLocalBytes,
-//     numGlobalBytes,
-//     numGlobalInts,
-//     numLocalInts,
-//  } from '@/algorand/constants'
-
-//const algodClient = new algosdk.Algodv2(algorandConfig.algodToken, algorandConfig.algodServer, algorandConfig.algodPort)
-
-// Compile smart contract in .teal format to program
-// const compileProgram = async (programSource: any) => {
-//     let encoder = new TextEncoder();
-//     let programBytes = encoder.encode(programSource);
-//     let compileResponse = await algodClient.compile(programBytes).do();
-//     return new Uint8Array(Buffer.from(compileResponse.result, "base64"));
-// }
+import { toast } from "sonner";
+import { createCourse } from '@/server-actions/creations'
 
 
 const formSchema = z.object({
@@ -41,12 +17,8 @@ const formSchema = z.object({
 
 type Schema = z.infer<typeof formSchema>
 
-function CreateCourse() {
+export default function CreateCourse() {
     const [loading, setLoading] = useState(false)
-    //const { toast } = useToast()
-    //const session = useSession();
-    //const { privateKey } = usePrivateKey();
-    //const [showDialog, setShowDialog] = useState(privateKey == null)
     const form = useForm<Schema>({
         resolver: zodResolver(formSchema)
     })
@@ -56,28 +28,10 @@ function CreateCourse() {
         console.log("Values", values)
         setLoading(true)
         try {
-
-            //if (privateKey == null) throw Error("Deencrypt password")
-
-            //const certificates = await createCertificate({
-              //  ...values
-           // })
-
-            //if (session == null) throw Error("Not Logged In")
-       
-
             
-            // toast({
-            //     title: "🎉 Success",
-            //     description: "successfully created",
-            // })
         }
         catch (e) {
-            // toast({
-            //     variant: "destructive",
-            //     title: "!Uh-oh",
-            //     description: "Something went wrong"
-            // })
+            
         }
         finally {
             setLoading(false)
@@ -117,7 +71,7 @@ function CreateCourse() {
                                            
                         
                         <FormControl    >
-                            <Button isLoading={loading} type="submit" >
+                            <Button type="submit" >
                                 Create
                             </Button>
                         </FormControl>
@@ -125,7 +79,5 @@ function CreateCourse() {
                 </Form>
             </div>
         </div>
-    )
+    );
 }
-
-export default CreateCourse

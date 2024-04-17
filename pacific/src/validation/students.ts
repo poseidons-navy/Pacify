@@ -8,8 +8,6 @@ export const createStudentSchema = z.object({
     .min(10, { message: "Invalid registration number" }),
   courseName: z.string(),
   universityName: z.string(),
-  asset_index: z.number(),
-  transaction_hash: z.string(),
 });
 
 export const connectWalletSchema = z.object({

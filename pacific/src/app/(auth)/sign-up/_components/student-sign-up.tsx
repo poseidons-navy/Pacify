@@ -23,11 +23,24 @@ import {
 } from "@/components/ui/form";
 import { createStudentAccount } from "@/server-actions/creations";
 import { createStudentSchema } from "@/validation/students";
-import { universityCourses } from "@/constants/courses";
+
+import { useWallet } from "@txnlab/use-wallet";
+import React, { useState } from 'react';
+import algosdk from "algosdk";
+import { createNft } from "../../../../../nft/create_certificate";
+import {UploadButton} from "@/components/uploadthing/uploadthing";
 import { useUser } from "@/hooks/useUser";
+
+  
+
 const StudentSignUpForm = () => {
-  const { universityName } = useUser();
+  const { activeAddress, signTransactions, sendTransactions } = useWallet();
+   const { universityName } = useUser();
   console.log(universityName);
+  const [fileURL, setFileURL] = useState<string>("");
+    import { universityCourses } from "@/constants/courses";
+
+
   const form = useForm<z.infer<typeof createStudentSchema>>({
     resolver: zodResolver(createStudentSchema),
     defaultValues: {
@@ -39,9 +52,45 @@ const StudentSignUpForm = () => {
     },
   });
 
+
   const onSubmit = async (values: z.infer<typeof createStudentSchema>) => {
     try {
-      await createStudentAccount(values);
+      if (!activeAddress) {
+        toast.error("please connect your wallet");
+        return;
+      }
+
+      if (fileURL === "") {
+        toast.error("please upload image");
+        return;
+      }
+
+      // Create NFT
+      const txn = await createNft({
+        creator_address: activeAddress,
+        name: values.registrationNumber,
+        asset_url: fileURL
+      });
+      const encodedTransaction = algosdk.encodeUnsignedTransaction(txn);
+      const signedTxn = await signTransactions([encodedTransaction]);
+      const waitRoundsToConfirm = 4;
+      const result = await sendTransactions(signedTxn, waitRoundsToConfirm);
+
+      //@ts-ignore
+      const asset_index = result['asset-index'] ?? 1;
+      const transaction_hash = result.txId;
+
+      let data = {
+        email: values.email,
+        name: values.name,
+        registrationNumber: values.registrationNumber,
+        universityName: values.universityName,
+        courseName: values.courseName,
+        asset_index,
+        transaction_hash
+      };
+
+      await createStudentAccount(data);
       toast.success("Student account has been created successfully");
       form.reset({
         email: "",
@@ -147,7 +196,17 @@ const StudentSignUpForm = () => {
               </FormItem>
             )}
           />
-
+          <p>Image:</p>
+          <UploadButton
+            endpoint="imageUploader"
+            onClientUploadComplete={(res) => {
+              setFileURL(res[0].url);
+              toast.success("file uploaded");
+            }}
+            onUploadError={(error: Error) => {
+              toast.error(error.message);
+            }}
+          />
           <Button type="submit" className="w-full">
             Create an account
           </Button>
