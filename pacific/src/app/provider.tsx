@@ -22,7 +22,6 @@ export default function CustomProvider({
       { id: PROVIDER_ID.PERA, clientStatic: PeraWalletConnect },
       { id: PROVIDER_ID.DAFFI, clientStatic: DaffiWalletConnect },
       { id: PROVIDER_ID.EXODUS },
-
       { id: PROVIDER_ID.KIBISIS },
     ],
   });

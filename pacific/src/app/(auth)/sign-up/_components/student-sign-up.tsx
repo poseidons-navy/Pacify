@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/form";
 import { createStudentAccount } from "@/server-actions/creations";
 import { createStudentSchema } from "@/validation/students";
+
 const StudentSignUpForm = () => {
   const form = useForm<z.infer<typeof createStudentSchema>>({
     resolver: zodResolver(createStudentSchema),
@@ -34,6 +35,7 @@ const StudentSignUpForm = () => {
       courseName: "",
     },
   });
+  
 
   const onSubmit = async (values: z.infer<typeof createStudentSchema>) => {
     try {
