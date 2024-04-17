@@ -70,14 +70,8 @@ const CreateInstitutionForm = () => {
               </FormItem>
             )}
           />
-          <div className="flex lg:flex-row flex-col items-center gap-y-4 lg:gap-x-4">
-            {/*TO DO : FIX THE ALIGNMENT ISSUE*/}
-            <WalletPopover side="left" align="center" sideOffset={-350}>
-              <Button type="button" className="w-11/12 my-2">
-                Connect Wallet
-              </Button>
-            </WalletPopover>
-            <Button type="submit" className="w-11/12 my-2" disabled={pending}>
+          <div className="flex  items-center">
+            <Button type="submit" className="w-full my-2" disabled={pending}>
               Create
             </Button>
           </div>
