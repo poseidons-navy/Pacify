@@ -102,7 +102,7 @@ function CreateStore() {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>Student's Registration Number</FormLabel>
+                    <FormLabel>Student&apos;s Registration Number</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="Reg no" type=" number" />
                     </FormControl>
@@ -137,7 +137,7 @@ function CreateStore() {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>Certificate's serial number</FormLabel>
+                    <FormLabel>Certificate&apos;s serial number</FormLabel>
                     <FormControl>
                       <Input
                         {...field}

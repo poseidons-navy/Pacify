@@ -71,7 +71,7 @@ const CreateInstitutionForm = () => {
             )}
           />
           <div className="flex  items-center">
-            <Button type="submit" className="w-full my-2" disabled={pending}>
+            <Button type="submit" className=" my-2" disabled={pending}>
               Create
             </Button>
           </div>

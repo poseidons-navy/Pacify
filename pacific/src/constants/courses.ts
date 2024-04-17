@@ -66,7 +66,6 @@ const universityCourses = [
   "Public Relations",
   "Media Studies",
   "Film Studies",
-  "Information Technology",
   "Bachelor of Science in Information Technology",
   "Cybersecurity",
   "Network Administration",

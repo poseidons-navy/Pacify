@@ -24,8 +24,10 @@ import {
 import { createStudentAccount } from "@/server-actions/creations";
 import { createStudentSchema } from "@/validation/students";
 import { universityCourses } from "@/constants/courses";
-
+import { useUser } from "@/hooks/useUser";
 const StudentSignUpForm = () => {
+  const { universityName } = useUser();
+  console.log(universityName);
   const form = useForm<z.infer<typeof createStudentSchema>>({
     resolver: zodResolver(createStudentSchema),
     defaultValues: {
