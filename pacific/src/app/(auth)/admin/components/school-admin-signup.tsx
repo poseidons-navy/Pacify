@@ -1,13 +1,6 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -19,20 +12,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  FormDescription,
 } from "@/components/ui/form";
-import { createAdminAccount } from "../../../../../server-actions/creations";
+import { createAdminAccount } from "@/server-actions/creations";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
-  wallet_address: z.string()
+  wallet_address: z.string(),
 });
 
 const AdminSignUpForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      
       name: "",
     },
   });
@@ -41,10 +32,7 @@ const AdminSignUpForm = () => {
     try {
       //submit data
       //REFACTOR THIS .
-      await createAdminAccount(
-        values.name,
-        values.wallet_address
-      );
+      await createAdminAccount(values.name, values.wallet_address);
       toast.success("School account has been created successfully");
       form.reset({
         name: "",

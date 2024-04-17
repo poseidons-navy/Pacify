@@ -2,14 +2,12 @@
 import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/db/firebase";
 
-import { createInstitutionSchema } from "@/validation/institution";
-
-
 import z from "zod";
 import {
   connectWalletSchema,
   createStudentSchema,
 } from "@/validation/students";
+import { createAdminSchema } from "@/validation/admin";
 import { createInstitutionSchema } from "@/validation/institution";
 export async function createTeachingInstitution(
   values: z.infer<typeof createInstitutionSchema>,
@@ -27,7 +25,7 @@ export async function createTeachingInstitution(
 
 export async function createCourse(
   name: string,
-  university: string
+  university: string,
 ): Promise<void> {
   try {
     await addDoc(collection(db, "course"), {
@@ -39,9 +37,6 @@ export async function createCourse(
     throw "Could Not Create Course";
   }
 }
-
-
-export async function createStudentAccount(
 
 export async function createStudentAccount(
   values: z.infer<typeof createStudentSchema>,
@@ -98,5 +93,19 @@ export async function addStudentWalletToDB(
   } catch (err) {
     console.log(err, "OHH SHIT");
     throw "Could Not Add Student's Wallet";
+  }
+}
+
+export async function createAdminAccount(
+  values: z.infer<typeof createAdminSchema>,
+): Promise<void> {
+  const { name, walletAddress } = values;
+  try {
+    await setDoc(doc(db, "teaching-institution", name), {
+      walletAddress,
+    });
+  } catch (err) {
+    console.log(err, "OHH SHIT");
+    throw "Could Not Create Teaching Institution";
   }
 }

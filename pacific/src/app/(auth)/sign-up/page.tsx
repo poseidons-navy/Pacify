@@ -1,10 +1,3 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { StudentSignUpForm } from "./_components/student-sign-up";
 import { CardForm } from "@/components/card-form";
 export default function StudentSignUpPage() {
