@@ -4,9 +4,9 @@ export const config = {
 
     algodToken: "",
 
-    algodServer: "https://testnet-api.algonode.network",
+    algodServer: "https://mainnet-api.algonode.cloud",
 
-    algodPort: "",
+    algodPort: 443,
 
     indexerToken: "",
 
