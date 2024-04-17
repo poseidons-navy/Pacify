@@ -6,6 +6,7 @@ import { Search } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 //import { Certificate, Admin } from '@prisma/client';
 import DashboardTopBar from '@/components/topbar/page';
+//import CertificateDetails from '@/components/certificate-details';
 
 function VerifyCertificate() {
   const [{ data, loading }, setcertificates] = useState<{ data: Array<Certificate & { creator: Admin | null }>, loading: boolean }>({
@@ -64,7 +65,7 @@ function VerifyCertificate() {
 
   return (
     <><DashboardTopBar />
-    <div className=" w-full h-full flex flex-col items-center justify-start gap-y-4 ">
+    <div className="w-11/12 h-full flex flex-col items-center justify-start gap-y-4 bg-gray-900 p-6 rounded-lg shadow-lg">
         
         <div className="flex flex-row items-center justify-between w-full gap-x-3">
           <Input onChange={(e)=> setSearch(e.target.value)} placeholder='Search for certificate by serial number...' /> 
@@ -72,7 +73,7 @@ function VerifyCertificate() {
             <Search/>
           </Button>
         </div>
-        <p className='w-full text-left' >
+        <p className='w-full text-left text-neutral-50' >
           The certificate will be displayed below :)
         </p>
         <div className="flex flex-col w-full items-center gap-y-5">
@@ -81,7 +82,7 @@ function VerifyCertificate() {
             return  (
               <CertificateDetails
                 key={i}
-                publication={certificates}
+                certificates={certificates}
                 showRead={true}
               />
             )
@@ -94,3 +95,6 @@ function VerifyCertificate() {
 }
 
 export default VerifyCertificate
+
+
+
