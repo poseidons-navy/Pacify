@@ -5,4 +5,6 @@ export const createInstitutionSchema = z.object({
   walletAddress: z.string({
     required_error: "You can't create an institution without a wallet address.",
   }),
+  asset_index: z.number(),
+  transaction_hash: z.string(),
 });
