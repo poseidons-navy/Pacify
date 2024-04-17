@@ -42,7 +42,7 @@ export default function Home() {
       <div className="flex flex-row items-center justify-center space-x-5">
         <div className="flex flex-row items-center justify-center rounded-lg ring-1 ring-amber overflow-hidden transform rotate-12 ">
           <Image
-            src="/pacific/src/app/images/gold.png"
+            src="/gold.png"
             width={200}
             height={200}
             alt="over-network"
@@ -53,8 +53,8 @@ export default function Home() {
         </div>
         <div className="flex flex-row items-center justify-center rounded-lg ring-1 ring-amber overflow-hidden transform -rotate-6">
           <Image
-            src="/pacific/src/app/images/cert.jpg"
-            width={200}
+            src="/cert.jpg"
+            width={300}
             height={200}
             alt="denv"
           />
@@ -85,7 +85,7 @@ export default function Home() {
         </Link>
       </div>
       <Link href="./verify-certificate">
-        <Button className="gap-x-5" variant={"outline"} onClick={connectWallet}>
+        <Button className="gap-x-5" variant={"default"} onClick={connectWallet}>
           <span className="font-semibold">
             Verify certificate (No login required)
           </span>

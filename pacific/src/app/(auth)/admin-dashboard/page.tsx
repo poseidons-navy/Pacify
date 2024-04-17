@@ -30,7 +30,7 @@ function AdminPage() {
   });
 
   const loadStoreData = async (status?: any) => {
-    setPublications((prev) => {
+    setCertificates((prev) => {
       return {
         ...prev,
         loading: true,
@@ -79,7 +79,7 @@ function AdminPage() {
   return (
     <>
       <DashboardTopBar />
-      <div className="flex flex-col w-full items-center pt-5 gap-y-4">
+      <div className="flex flex-col w-11/12 items-center pt-5 gap-y-4">
         <h3 className="font-semibold text-xl w-full">
           Certificates you have published
         </h3>

@@ -17,7 +17,7 @@ function DashboardTopBar() {
   return (
     <div
       className={clsx(
-        "flex flex-row items-center justify-between w-full border-b-[1px] border-b-neutral-50  px-5 py-5 bg-gradient-to-r from-sky-400 to-sky-100"
+        "flex flex-row items-center justify-between w-11/12 border-b-[1px] border-b-neutral-50 rounded-lg  px-4 py-6 bg-amber-200 mt-1 mb-2"  
       )}
     >
       <div className="flex flex-row items-center justify-start w-full space-x-2">
