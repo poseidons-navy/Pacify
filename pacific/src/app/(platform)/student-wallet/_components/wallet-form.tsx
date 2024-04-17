@@ -17,22 +17,30 @@ import {
 } from "@/components/ui/form";
 import { addStudentWalletToDB } from "@/server-actions/creations";
 import { connectWalletSchema } from "@/validation/students";
+import { useWallet } from "@txnlab/use-wallet";
 const ConnectWalletForm = () => {
   const form = useForm<z.infer<typeof connectWalletSchema>>({
     resolver: zodResolver(connectWalletSchema),
     defaultValues: {
       registrationNumber: "",
-      walletAddress: "",
     },
   });
+  const { activeAddress } = useWallet();
 
   const onSubmit = async (values: z.infer<typeof connectWalletSchema>) => {
     try {
-      await addStudentWalletToDB(values);
-      toast.success(" Successfully added");
+      if (!activeAddress) {
+        toast.error("please connect your wallet");
+        return;
+      }
+      const data = {
+        registrationNumber: values.registrationNumber,
+        walletAddress: activeAddress,
+      };
+      await addStudentWalletToDB(data);
+      toast.success(" Successfully added your wallet details");
       form.reset({
         registrationNumber: "",
-        walletAddress: "",
       });
     } catch (error) {
       toast.error("Something went wrong");
@@ -59,23 +67,6 @@ const ConnectWalletForm = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="walletAddress"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Wallet Address</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter the name of the wallet address"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
           <Button type="submit" className="w-full">
             Connect wallet
           </Button>

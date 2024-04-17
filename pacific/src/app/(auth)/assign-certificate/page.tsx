@@ -1,3 +1,4 @@
+
 "use client"
 import BackButton from '@/components/back-button'
 import { Button } from '@/components/ui/button'
@@ -7,61 +8,52 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { z } from 'zod'
+
+import { z } from "zod";
 
 
 const formSchema = z.object({
-    registrationNo: z.string(),
-    coursename: z.string(),
-    serial_number: z.number(),
-    certificate_url: z.string(),
-    
-})
+  registrationNo: z.string(),
+  coursename: z.string(),
+  serial_number: z.number(),
+  certificate_url: z.string(),
+});
 
-type Schema = z.infer<typeof formSchema>
+type Schema = z.infer<typeof formSchema>;
 
 function CreateStore() {
-    const [loading, setLoading] = useState(false)
-    //const { toast } = useToast()
-    //const session = useSession();
-    //const { privateKey } = usePrivateKey();
-    //const [showDialog, setShowDialog] = useState(privateKey == null)
-    const form = useForm<Schema>({
-        resolver: zodResolver(formSchema)
-    })
+  const [loading, setLoading] = useState(false);
+  //const { toast } = useToast()
+  //const session = useSession();
+  //const { privateKey } = usePrivateKey();
+  //const [showDialog, setShowDialog] = useState(privateKey == null)
+  const form = useForm<Schema>({
+    resolver: zodResolver(formSchema),
+  });
 
-
-    const onSubmit = async (values: Schema) => {
-        console.log("Values", values)
-        setLoading(true)
-        try {
-
-            //if (privateKey == null) throw Error("Deencrypt password")
-
-            //const certificates = await createCertificate({
-              //  ...values
-           // })
-
-            //if (session == null) throw Error("Not Logged In")
-       
-
-            
-            // toast({
-            //     title: "🎉 Success",
-            //     description: "successfully created",
-            // })
-        }
-        catch (e) {
-            // toast({
-            //     variant: "destructive",
-            //     title: "!Uh-oh",
-            //     description: "Something went wrong"
-            // })
-        }
-        finally {
-            setLoading(false)
-        }
+  const onSubmit = async (values: Schema) => {
+    console.log("Values", values);
+    setLoading(true);
+    try {
+      //if (privateKey == null) throw Error("Deencrypt password")
+      //const certificates = await createCertificate({
+      //  ...values
+      // })
+      //if (session == null) throw Error("Not Logged In")
+      // toast({
+      //     title: "🎉 Success",
+      //     description: "successfully created",
+      // })
+    } catch (e) {
+      // toast({
+      //     variant: "destructive",
+      //     title: "!Uh-oh",
+      //     description: "Something went wrong"
+      // })
+    } finally {
+      setLoading(false);
     }
+
 
     return (
         <div className="flex flex-col w-full h-full items-center  justify-center ">
@@ -154,6 +146,7 @@ function CreateStore() {
                                         </FormLabel>
                                         <FormControl>
                                             {/* <UploadDropzone
+
                                                 endpoint='imageUploader'
                                                 onClientUploadComplete={(uploads) => {
                                                     const upload = uploads?.at(-1)
@@ -174,23 +167,23 @@ function CreateStore() {
                                                     })
                                                 }}
                                             /> */}
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )
-                            }}
-                        />
-                        
-                        <FormControl    >
-                            <Button isLoading={loading} type="submit" >
-                                Assign
-                            </Button>
-                        </FormControl>
-                    </form>
-                </Form>
-            </div>
-        </div>
-    )
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+
+            <FormControl>
+              <Button isLoading={loading} type="submit">
+                Assign
+              </Button>
+            </FormControl>
+          </form>
+        </Form>
+      </div>
+    </div>
+  );
 }
 
-export default CreateStore
+export default CreateStore;
