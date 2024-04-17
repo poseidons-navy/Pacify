@@ -6,6 +6,7 @@ import { UserIcon} from 'lucide-react'
 import React from 'react'
 // import { fetchBalance } from '@/server/publication'
 import Link from 'next/link'
+import DashboardTopBar from '@/components/topbar/page'
 
 async function ProfilePage() {
     // const session = await getServerAuthSession()
@@ -26,7 +27,9 @@ async function ProfilePage() {
     
 
   return (
-    <div className="flex flex-col items-center justify-centet w-full space-y-10 px-2 pb-[100px]">
+    <>
+    <DashboardTopBar/>
+    <div className="flex flex-col items-center justify-centet space-y-10 px-2 pb-[100px] w-11/12">
         {/* Wallet Section */}
         <div className="flex flex-col w-full space-y-5 ring-1 ring-amber-100 rounded-md shadow-lg px-5 py-5 ">
                 <h2 className='text-xl font-semibold' >
@@ -75,6 +78,7 @@ async function ProfilePage() {
 
         </div>        
     </div>
+    </>
   )
 }
 
