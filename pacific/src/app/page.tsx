@@ -63,13 +63,13 @@ export default function Home() {
 
       <div className="flex flex-row w-full items-center justify-center gap-y-2">
         <Link href="/institution">
-          <Button className="gap-x-3" variant={"outline"}>
+          <Button className="gap-x-3" variant={"default"}>
             <span className="font-semibold">Create an institution account</span>
           </Button>
         </Link>
 
         <Link href="/sign-up">
-          <Button className="gap-x-5" variant={"outline"}>
+          <Button className="ml-4 gap-x-5" variant={"default"}>
             <span className="font-semibold">Create a student account</span>
           </Button>
         </Link>
