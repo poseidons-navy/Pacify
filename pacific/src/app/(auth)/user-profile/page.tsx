@@ -1,10 +1,7 @@
 import { Button } from '@/components/ui/button'
-//import { getServerAuthSession } from '@/server/auth'
-//import { getPurchasedBooks } from '@/server/publication'
-//import { isNull } from 'lodash'
+import BackButton from '@/components/back-button'
 import { UserIcon} from 'lucide-react'
 import React from 'react'
-// import { fetchBalance } from '@/server/publication'
 import Link from 'next/link'
 import DashboardTopBar from '@/components/topbar/page'
 
@@ -28,7 +25,8 @@ async function ProfilePage() {
 
   return (
     <>
-    <DashboardTopBar/>
+    
+    <BackButton/><DashboardTopBar/>
     <div className="flex flex-col items-center justify-centet space-y-10 px-2 pb-[100px] w-11/12">
         {/* Wallet Section */}
         <div className="flex flex-col w-full space-y-5 ring-1 ring-amber-100 rounded-md shadow-lg px-5 py-5 ">
