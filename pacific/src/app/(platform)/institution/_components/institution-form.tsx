@@ -16,7 +16,10 @@ import {
 } from "@/components/ui/form";
 import { createTeachingInstitution } from "@/server-actions/creations";
 import { createInstitutionSchema } from "@/validation/institution";
+import { useWallet } from "@txnlab/use-wallet";
+
 import { WalletPopover } from "@/components/wallet-popover";
+import { useFormStatus } from "react-dom";
 const CreateInstitutionForm = () => {
   const form = useForm<z.infer<typeof createInstitutionSchema>>({
     resolver: zodResolver(createInstitutionSchema),
@@ -25,11 +28,20 @@ const CreateInstitutionForm = () => {
       walletAddress: "",
     },
   });
-
+  const { activeAddress } = useWallet();
+  const { pending } = useFormStatus();
   const onSubmit = async (values: z.infer<typeof createInstitutionSchema>) => {
     try {
-      await createTeachingInstitution(values);
-      toast.success(" created ");
+      if (!activeAddress) {
+        toast.error("please connect your wallet");
+        return;
+      }
+      const data = {
+        name: values.name,
+        walletAddress: activeAddress,
+      };
+      await createTeachingInstitution(data);
+      toast.success("the institution has been created successfully");
       form.reset({
         name: "",
         walletAddress: "",
@@ -58,11 +70,14 @@ const CreateInstitutionForm = () => {
               </FormItem>
             )}
           />
-          <div className="flex items-center gap-x-4">
-            <WalletPopover side="right">
-              <Button type="button">Connect Wallet</Button>
+          <div className="flex lg:flex-row flex-col items-center gap-y-4 lg:gap-x-4">
+            {/*TO DO : FIX THE ALIGNMENT ISSUE*/}
+            <WalletPopover side="left" align="center" sideOffset={-350}>
+              <Button type="button" className="w-11/12 my-2">
+                Connect Wallet
+              </Button>
             </WalletPopover>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-11/12 my-2" disabled={pending}>
               Create
             </Button>
           </div>
