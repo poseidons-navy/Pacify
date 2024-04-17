@@ -1,20 +1,20 @@
 "use server";
 import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "../src/db/firebase";
-
-export async function createAdminAccount(
-  name: string,
-  wallet_address: string,
+import { db } from "@/db/firebase";
+//import { createInstitutionSchema } from "@/validation/institution";
+/*export async function createTeachingInstitution(
+  values: z.infer<typeof createInstitutionSchema>,
 ): Promise<void> {
+  const { name, walletAddress } = values;
   try {
     await setDoc(doc(db, "teaching-institution", name), {
-      wallet_address,
+      walletAddress,
     });
   } catch (err) {
     console.log(err, "OHH SHIT");
     throw "Could Not Create Teaching Institution";
   }
-}
+}*/
 
 export async function createCourse(
   name: string,
@@ -31,14 +31,12 @@ export async function createCourse(
   }
 }
 
-export async function createStudentAccount(
-  email: string,
-  name: string,
-  registrationNumber: string,
-  universityName: string,
-  courseName: string,
+/*export async function createStudentAccount(
+  values: z.infer<typeof createStudentSchema>,
 ): Promise<void> {
   try {
+    const { email, name, registrationNumber, universityName, courseName } =
+      values;
     const password = "someRandomBS";
     await setDoc(doc(db, "students", registrationNumber), {
       email,
@@ -54,9 +52,9 @@ export async function createStudentAccount(
     console.log(err, "OHH SHIT");
     throw "Could Not Create Student Account";
   }
-}
+}*/
 
-export async function assignCertificate(
+/*export async function assignCertificate(
   course_name: string,
   university_name: string,
   student_reg_number: string,
@@ -75,18 +73,38 @@ export async function assignCertificate(
     console.log(err, "OHH SHIT");
     throw "Could Not Assign Certificate";
   }
-}
+}*/
 
-export async function addStudentWalletToDB(
-  student_reg_number: string,
-  wallet_address: string,
+/*export async function addStudentWalletToDB(
+  values: z.infer<typeof connectWalletSchema>,
 ): Promise<void> {
+  const { walletAddress, registrationNumber } = values;
   try {
-    await updateDoc(doc(db, "students", student_reg_number), {
-      wallet_address,
+    await updateDoc(doc(db, "students", registrationNumber), {
+      walletAddress,
     });
   } catch (err) {
     console.log(err, "OHH SHIT");
     throw "Could Not Add Student's Wallet";
   }
-}
+}*/
+  
+    
+      
+      
+    
+      
+      
+        
+        
+          
+
+    
+        
+      
+     
+      
+          
+        
+      
+    
