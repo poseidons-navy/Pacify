@@ -11,10 +11,12 @@ import { createInstitutionSchema } from "@/validation/institution";
 export async function createTeachingInstitution(
   values: z.infer<typeof createInstitutionSchema>,
 ): Promise<void> {
-  const { name, walletAddress } = values;
+  const { name, walletAddress, asset_index, transaction_hash } = values;
   try {
     await setDoc(doc(db, "teaching-institution", name), {
       walletAddress,
+      asset_index,
+      transaction_hash
     });
   } catch (err) {
     console.log(err, "OHH SHIT");
@@ -41,7 +43,7 @@ export async function createStudentAccount(
   values: z.infer<typeof createStudentSchema>,
 ): Promise<void> {
   try {
-    const { email, name, registrationNumber, universityName, courseName } =
+    const { email, name, registrationNumber, universityName, courseName, asset_index, transaction_hash } =
       values;
     const password = "someRandomBS";
     await setDoc(doc(db, "students", registrationNumber), {
@@ -51,6 +53,8 @@ export async function createStudentAccount(
       password,
       universityName,
       courseName,
+      asset_index,
+      transaction_hash
     });
 
     // Send user email with password
@@ -66,6 +70,8 @@ export async function assignCertificate(
   student_reg_number: string,
   certificate_serial_number: string,
   certificate_image_url: string,
+  asset_index: number,
+  transaction_hash: string
 ): Promise<void> {
   try {
     await addDoc(collection(db, "certificate"), {
@@ -74,6 +80,8 @@ export async function assignCertificate(
       student_reg_number,
       certificate_serial_number,
       certificate_image_url,
+      asset_index,
+      transaction_hash
     });
   } catch (err) {
     console.log(err, "OHH SHIT");

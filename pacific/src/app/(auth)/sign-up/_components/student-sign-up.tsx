@@ -97,7 +97,9 @@ const StudentSignUpForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>Don&apos;t put any slashes \</FormDescription>
+                <FormDescription className="px-2 text-black">
+                  Don&apos;t put any slashes
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
