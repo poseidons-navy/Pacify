@@ -18,7 +18,7 @@ import { db } from "@/db/firebase";
 
 export async function createCourse(
   name: string,
-  university: string,
+  university: string
 ): Promise<void> {
   try {
     await addDoc(collection(db, "course"), {
@@ -88,23 +88,3 @@ export async function createCourse(
     throw "Could Not Add Student's Wallet";
   }
 }*/
-  
-    
-      
-      
-    
-      
-      
-        
-        
-          
-
-    
-        
-      
-     
-      
-          
-        
-      
-    
