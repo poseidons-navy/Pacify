@@ -49,7 +49,7 @@ export default function Home() {
       <div className="flex flex-row items-center justify-center space-x-5">
         <div className="flex flex-row items-center justify-center rounded-lg ring-1 ring-amber overflow-hidden transform rotate-12 ">
           <Image
-            src="/athena.png"
+            src="/pacific/src/app/images/gold.png"
             width={200}
             height={200}
             alt="over-network"
@@ -60,7 +60,7 @@ export default function Home() {
         </div>
         <div className="flex flex-row items-center justify-center rounded-lg ring-1 ring-amber overflow-hidden transform -rotate-6">
           <Image
-            src="/poseidon.png"
+            src="/pacific/src/app/images/cert.jpg"
             width={200}
             height={200}
             alt="denv"
@@ -75,10 +75,10 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="flex flex-col w-full items-center justify-center gap-y-2">
+      <div className="flex flex-row w-full items-center justify-center gap-y-2">
         <Link href="./admin/">
         <Button
-          className='gap-x-5'
+          className='gap-x-3'
           variant={"outline"}
           >
           <span
@@ -101,7 +101,12 @@ export default function Home() {
           
         </Button></Link>
 
-        <Link href="./verify-certificate">
+        
+
+        
+        
+
+      </div><Link href="./verify-certificate">
         <Button
           className='gap-x-5'
           variant={"outline"}
@@ -114,11 +119,6 @@ export default function Home() {
           </span>
           
         </Button></Link>
-
-        <ArrowUp className='animate-bounce' />
-        
-
-      </div>
     </main>
   )
 }
