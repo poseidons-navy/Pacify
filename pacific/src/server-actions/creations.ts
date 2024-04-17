@@ -7,7 +7,6 @@ import {
   connectWalletSchema,
   createStudentSchema,
 } from "@/validation/students";
-import { createAdminSchema } from "@/validation/admin";
 import { createInstitutionSchema } from "@/validation/institution";
 export async function createTeachingInstitution(
   values: z.infer<typeof createInstitutionSchema>,
@@ -93,19 +92,5 @@ export async function addStudentWalletToDB(
   } catch (err) {
     console.log(err, "OHH SHIT");
     throw "Could Not Add Student's Wallet";
-  }
-}
-
-export async function createAdminAccount(
-  values: z.infer<typeof createAdminSchema>,
-): Promise<void> {
-  const { name, walletAddress } = values;
-  try {
-    await setDoc(doc(db, "teaching-institution", name), {
-      walletAddress,
-    });
-  } catch (err) {
-    console.log(err, "OHH SHIT");
-    throw "Could Not Create Teaching Institution";
   }
 }

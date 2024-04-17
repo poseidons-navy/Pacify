@@ -31,10 +31,9 @@ export default function Home() {
       console.log(err);
     }*/
   }
-  const handleSignIn = async () => {};
+  const handleSignIn = async () => { };
 
   return (
-
     <main className="flex min-h-screen flex-col items-center justify-center p-24 space-y-10">
       <div className="flex flex-col w-full items-center justify-center gap-y-3">
         <h2 className="font-semibold text-2xl">Welcome to Pacify.</h2>
@@ -59,7 +58,6 @@ export default function Home() {
             height={200}
             alt="denv"
           />
-
         </div>
       </div>
       <div className="flex flex-row items-center justify-center">
@@ -74,15 +72,15 @@ export default function Home() {
       </div>
 
       <div className="flex flex-row w-full items-center justify-center gap-y-2">
-        <Link href="./admin/">
-          <Button className="gap-x-3" variant={"default"}>
-            <span className="font-semibold">Login as Institution</span>
+        <Link href="/institution">
+          <Button className="gap-x-3" variant={"outline"}>
+            <span className="font-semibold">Create an institution account</span>
           </Button>
         </Link>
 
-        <Link href="./sign-up">
-          <Button className="gap-x-5 ml-4" variant={"default"}>
-            <span className="font-semibold">Login as a student</span>
+        <Link href="/sign-up">
+          <Button className="gap-x-5" variant={"outline"}>
+            <span className="font-semibold">Create a student account</span>
           </Button>
         </Link>
       </div>
