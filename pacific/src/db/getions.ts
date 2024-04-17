@@ -27,21 +27,16 @@ export async function getUserDataFromLogin(
       );
       const querySnapshot2 = await getDocs(q2);
 
-      if (querySnapshot2.size === 0) {
-        throw "Account With Wallet Does Not Exist";
-      } else {
-        const studentDataDoc = querySnapshot2.docs[0];
-        const studentData = studentDataDoc.data();
-        return new StudentAccount(
-          studentDataDoc.id,
-          studentData.university_name,
-          studentData.course_name,
-          studentData.name
-        );
-      }
-    } else {
-      const institutionDoc = querySnapshot.docs[0];
-      const institutionData = institutionDoc.data();
+
+            if (querySnapshot2.size === 0) {
+                throw "Account With Wallet Does Not Exist"
+            } else {
+                return StudentAccount.fromFirebaseDocument(querySnapshot2.docs[0]);
+            }
+        } else {
+            const institutionDoc = querySnapshot.docs[0];
+            const institutionData = institutionDoc.data();
+
 
       return new TeachingInstitution(
         institutionDoc.id,
@@ -101,8 +96,7 @@ export async function searchForCertificate(
     if (querySnapshot.size === 0) {
       return;
     }
-
-    const data = querySnapshot.docs[0].data();
+     const data = querySnapshot.docs[0].data();
     return new Certificate(
       data.course_name,
       data.university_name,
@@ -115,6 +109,42 @@ export async function searchForCertificate(
     throw "Could Not Search For Certificate";
   }
 }
+
+
+
+export async function getCourseNamesForUniversity(university_name: string): Promise<string[]> {
+    try {
+        const q = query(collection(db, "course"), where("university", "==", university_name));
+        const querySnapshot = await getDocs(q);
+        let course_names: string[] = [];
+
+        querySnapshot.forEach(doc => {
+            course_names.push(doc.data().name);
+        })
+
+        return course_names;
+    } catch(err) {
+        console.log(err, "OHH SHIT");
+        throw "Could Not Get Courses";
+    }
+}
+
+export async function getStudentsForAUniversity(university_name: string): Promise<StudentAccount[]> {
+    try {
+        const q = query(collection(db, "students"), where("universityName", "==", university_name));
+        const querySnapshot = await getDocs(q);
+
+        let students: StudentAccount[] = [];
+        querySnapshot.forEach(doc => {
+            students.push(StudentAccount.fromFirebaseDocument(doc))
+        });
+
+        return students;
+    } catch(err) {
+        console.log(err, "OHH SHIT");
+        throw `Could Not Get Students Of ${university_name}`
+    }
+}  
 /**
  * Gets the asset index from firebase
  * @param serial_no number
