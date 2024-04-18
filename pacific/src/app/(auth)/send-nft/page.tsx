@@ -22,7 +22,6 @@ type Schema = z.infer<typeof formSchema>;
 
 function CreateStore() {
     const { activeAddress, signTransactions, sendTransactions } = useWallet();
-    const [fileURL, setFileURL] = useState<string>("");
     const [loading, setLoading] = useState(false)
     //const { toast } = useToast()
     //const session = useSession();
@@ -33,17 +32,10 @@ function CreateStore() {
     
 console.log("this compoent")
     const onSubmit = async (values: Schema) => {
-        console.log("Called this")
-        console.log("Values", values)
         setLoading(true)
         try {
             if (!activeAddress) {
                 toast.error("please connect your wallet");
-                return;
-            }
-
-            if (fileURL === "") {
-                toast.error("please upload image");
                 return;
             }
 
@@ -57,9 +49,9 @@ console.log("this compoent")
             //@ts-ignore
             //TODO: fix this LATER
             const asset_index = result["asset-index"] ?? 1;
+            console.log(asset_index);
             const transaction_hash = result.txId;
 
-            
             await myCertificates(values.wallet_address, asset_index);
             toast.success("NFT has been sent successfully");
             form.reset({
