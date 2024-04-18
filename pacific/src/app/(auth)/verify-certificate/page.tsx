@@ -15,7 +15,10 @@ function VerifyCertificate() {
   const [certificate, setCertificate] = useState<Record<string, any>>();
   const [txid, setTxid] = useState<string>("");
   const [searchLoading, setSearchLoading] = useState(false);
-  const [search, setSearch] = useState<{ serialNumber: string, universityName: string }>({ serialNumber: "", universityName: "" });
+  const [search, setSearch] = useState<{
+    serialNumber: string;
+    universityName: string;
+  }>({ serialNumber: "", universityName: "" });
 
 
   const handleSearch = () => {
@@ -54,16 +57,20 @@ function VerifyCertificate() {
   return (
     <>
       <DashboardTopBar />
-      <div className="w-11/12 h-80 flex flex-col items-center justify-start gap-y-4 bg-gray-900 p-6 rounded-lg shadow-lg">
+      <div className="w-11/12 h-fit  transition-all flex flex-col items-center justify-start gap-y-4 bg-black p-6 rounded-lg shadow-lg">
         <div className="flex flex-row items-center justify-between w-full gap-x-3">
           <Input
             value={search.universityName}
-            onChange={(e) => setSearch({ ...search, universityName: e.target.value })}
+            onChange={(e) =>
+              setSearch({ ...search, universityName: e.target.value })
+            }
             placeholder="Enter University Name"
           />
           <Input
             value={search.serialNumber}
-            onChange={(e) => setSearch({ ...search, serialNumber: e.target.value })}
+            onChange={(e) =>
+              setSearch({ ...search, serialNumber: e.target.value })
+            }
             placeholder="Search for certificate by serial number..."
           />
           <Button onClick={handleSearch}>
