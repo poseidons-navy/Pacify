@@ -13,8 +13,8 @@ interface Props {
 }
 
 function CertificateDetails( props: Props) {
-    const p = props
-    const { certificates: { cover, name, description, serial_id, creator_id }, showRead } = p
+    const p = props       
+    const { certificates: { certificate_url, registrationNo, coursename, serial_number }, showRead } = p
     const { data } = useSession()
 
   return (
@@ -23,24 +23,26 @@ function CertificateDetails( props: Props) {
         {/* Certificate Cover */}
         <div className="w-[120px] h-[180px] overflow-hidden relative ring-1">
             <Image
-                src={cover ?? ""}
+                src={certificate_url ?? ""}
                 fill
                 style={{
                     objectFit: "cover"
                 }}
-                alt={name ?? ""}
+                alt={registrationNo ?? ""}
             />
         </div>
 
         {/* Certificate Details */}
         <div className="flex flex-col col-span-4 gap-y-2 w-full">
             <h3 className='w-full text-xl font-semibold' >
-                {name}
+                {registrationNo}
             </h3>
             
             <span>
-                { description }
+                { coursename }
             </span>
+
+            <p>{serial_number}</p>
             
         </div>
 
@@ -55,7 +57,7 @@ function CertificateDetails( props: Props) {
             
             
         </div>
-        {data?.user?.id === creator_id && <Link href={`/dashboard/publications/${id}/update`} legacyBehavior >
+        {data?.user?.id === creator_id && <Link href={``} legacyBehavior >
             <Button variant={'outline'} >
                 <FileEdit/>
             </Button>
