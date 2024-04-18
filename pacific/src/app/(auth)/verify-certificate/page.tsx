@@ -10,15 +10,10 @@ import { toast } from "sonner";
 
 import { getUserDataFromLogin } from "@/db/getions";
 import { getTxIdFromSerial } from "@/db/getions";
+
 function VerifyCertificate() {
   const [certificate, setCertificate] = useState<Record<string, any>>();
-  const [searchLoading, setSearchLoading] = useState(false);
-  const [search, setSearch] = useState<string>("");
   const [txid, setTxid] = useState<string>("");
-
-
-function VerifyCertificate() {
-  const [certificate, setCertificate] = useState<Record<string, any>>();
   const [searchLoading, setSearchLoading] = useState(false);
   const [search, setSearch] = useState<{ serialNumber: string, universityName: string }>({ serialNumber: "", universityName: "" });
 
