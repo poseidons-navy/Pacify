@@ -68,7 +68,7 @@ export default function Home() {
           </Button>
         </Link>
 
-        <Link href="/sign-up">
+        <Link href="/student-wallet">
           <Button className="ml-4 gap-x-5" variant={"default"}>
             <span className="font-semibold">Create a student account</span>
           </Button>
