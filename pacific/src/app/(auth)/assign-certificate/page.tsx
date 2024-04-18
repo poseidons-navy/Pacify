@@ -79,7 +79,7 @@ function CreateStore() {
                 transaction_hash,
             };
             await assignCertificate(data);
-            toast.success("the institution has been created successfully");
+            toast.success("certificate has been issued successfully");
             form.reset({
                 registrationNo: "",
                 coursename: "",

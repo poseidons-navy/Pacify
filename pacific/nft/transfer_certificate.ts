@@ -30,14 +30,24 @@ async function transferNft(
   receiver_address: string
 ): Promise<algosdk.Transaction> {
   const reg_no = await getRegFromPubkey(receiver_address);
-  const assetIndex = await getIndexFromReg(reg_no);
+
+  if (reg_no === null || reg_no === undefined) {
+    console.log("Transfer NFT: User Does Not Have Account");
+  }
+
+  const assetIndex = await getIndexFromReg(reg_no ?? "");
+
+  if (assetIndex === null || assetIndex === undefined) {
+    console.log("Transfer NFT: User Does Not Have Certificate");
+  }
+
   try {
     const suggestedParams = await algodClient.getTransactionParams().do();
     const xferTxn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
       from: creator_address,
       to: receiver_address,
       suggestedParams,
-      assetIndex,
+      assetIndex: assetIndex ?? 1,
       amount: 1,
     });
     return xferTxn;
@@ -54,10 +64,21 @@ async function optInToReceiveNft(
   active_address: string
 ): Promise<algosdk.Transaction> {
   try {
+    console.log("OPT IN TO RECEIVE NFT")
     const reg_no = await getRegFromPubkey(active_address);
-    const assetIndex = await getIndexFromReg(reg_no);
+
+    if (reg_no === null || reg_no === undefined) {
+      console.log("User Does Not Have Account");
+    }
+
+    const assetIndex = await getIndexFromReg(reg_no ?? "");
+
+    if (assetIndex === null || assetIndex === undefined) {
+      console.log("User Does Not Have Certificate");
+    }
+
     //Opt in
-    const transaction = await optIn(active_address, assetIndex);
+    const transaction = await optIn(active_address, assetIndex ?? 1);
     return transaction;
   } catch (e: any) {
     console.log("Error occured during optin function 2", e);

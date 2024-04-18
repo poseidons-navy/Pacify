@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { createStudentAccount } from "@/server-actions/creations";
 import { createStudentSchema } from "@/validation/students";
-
+import axios from 'axios';
 import { useWallet } from "@txnlab/use-wallet";
 import React, { useState } from "react";
 import algosdk from "algosdk";
@@ -85,9 +85,10 @@ const StudentSignUpForm = () => {
       };
 
       await createStudentAccount(data);
+      var randomstring = Math.random().toString(36).slice(-8);
 
       await axios.post("/api/email", {
-        password,
+        password: randomstring,
         email: values.email
       });
 
@@ -100,6 +101,7 @@ const StudentSignUpForm = () => {
         universityName: "",
       });
     } catch (error) {
+      console.log(error);
       toast.error("Unable to create the account");
     }
   };

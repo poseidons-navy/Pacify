@@ -191,7 +191,7 @@ export async function getIndexFromDb(serial_no: string): Promise<number | void> 
  * @param reg_no string
  * @returns asset_index(number)
  */
-export async function getIndexFromReg(reg_no: string): Promise<number>{
+export async function getIndexFromReg(reg_no: string): Promise<number | null>{
   if (!reg_no) {
     throw new Error("Serial number not provided");
   }
@@ -201,8 +201,14 @@ export async function getIndexFromReg(reg_no: string): Promise<number>{
       where("student_reg_number", "==", reg_no),
     );
     const assetSnapshot = await getDocs(assetIndexQuery);
+
+    if (assetSnapshot.size === 0) {
+      console.log("Student Does Not Have Account");
+      return null;
+    }
+
     const assetData = assetSnapshot.docs.map((doc) => doc.data());
-    console.log(assetData);
+    console.log(assetData, "Get Asset Index");
     return assetData[0].asset_index;
   } catch (e: any) {
     throw new Error("Error occured during retrieving asset_index", e);
@@ -213,19 +219,24 @@ export async function getIndexFromReg(reg_no: string): Promise<number>{
  * @param active_address string
  * @returns reg_no(string)
  */
-export async function getRegFromPubkey(active_address: string){
+export async function getRegFromPubkey(active_address: string): Promise<string | undefined>{
   if (!active_address) {
     throw new Error("Public key not provided");
   }
   try{
+    console.log("Get Reg FROM PUBKEY", active_address);
     const assetIndexQuery = query(
       collection(db, "students"),
       where("walletAddress", "==", active_address),
     );
     const assetSnapshot = await getDocs(assetIndexQuery);
-    const assetData = assetSnapshot.docs.map((doc) => doc.data());
-    console.log(assetData);
-    return assetData[0].registrationNumber;
+
+    if (assetSnapshot.size === 0) {
+      return;
+    }
+
+    console.log(assetSnapshot.docs[0].id, "Student Reg Number");
+    return assetSnapshot.docs[0].id;
   }
   catch (e: any) {
     throw new Error("Error occured during retrieving reg_no", e);

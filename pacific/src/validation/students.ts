@@ -14,7 +14,4 @@ export const connectWalletSchema = z.object({
   registrationNumber: z
     .string()
     .min(10, { message: "Invalid registration number" }),
-  walletAddress: z.string({
-    required_error: "Please input your wallet address",
-  }),
 });
