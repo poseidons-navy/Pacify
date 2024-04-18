@@ -34,12 +34,12 @@ export default function Home() {
   const handleSignIn = async () => { };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-16 space-y-10">
+    <main className="flex min-h-screen flex-col items-center justify-center space-y-7">
       <div className="flex flex-col w-full items-center justify-center gap-y-3">
         <h2 className="font-semibold text-2xl">Welcome to Pacify.</h2>
         <p>Verify your academic certificates.</p>
       </div>
-      <div className="flex flex-row items-center justify-center space-x-5">
+      <div className="flex flex-row items-center justify-center space-x-10">
         <div className="flex flex-row items-center justify-center rounded-lg ring-1 ring-amber overflow-hidden transform rotate-12 ">
           <Image src="/gold.png" width={200} height={200} alt="over-network" />
         </div>
