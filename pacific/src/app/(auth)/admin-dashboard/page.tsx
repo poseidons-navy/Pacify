@@ -41,7 +41,7 @@ function AdminPage() {
       <DashboardTopBar />
       <div className="flex flex-col w-11/12 items-center pt-5 gap-y-4">
       <div>
-      <Link href="./student-wallet" legacyBehavior>
+      <Link href="./sign-up" legacyBehavior>
           <Button className="mr-4">Create Student Account</Button>
         </Link>
       <Link href="./send-nft" legacyBehavior>
