@@ -4,7 +4,7 @@ import { UserContext } from "@/context/user-context";
 export function useUser() {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error("UseUser must be used inside its context provider");
+    throw new Error("useUser must be used inside its context provider");
   }
   return context;
 }
