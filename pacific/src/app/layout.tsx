@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import { AppBar } from "@/components/app-bar";
 import "./globals.css";
 import CustomProvider from "./provider";
+import { UserProvider } from "@/context/user-provider";
 const poppins = Poppins({
   variable: "--font-poppins",
   weight: ["300", "400", "500", "700", "900"],
@@ -25,8 +26,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable}`}>
         <CustomProvider>
-          <AppBar />
-          {children}
+          <UserProvider>
+            <AppBar />
+            {children}
+          </UserProvider>
         </CustomProvider>
         <Toaster />
       </body>

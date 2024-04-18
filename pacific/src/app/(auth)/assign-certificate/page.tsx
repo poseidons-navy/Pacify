@@ -1,3 +1,4 @@
+
 "use client"
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -6,6 +7,7 @@ import { Select, SelectTrigger, SelectContent, SelectItem } from '@/components/u
 import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+
 import { z } from 'zod'
 import { UploadDropzone } from '@/components/uploadthing/uploadthing'
 import DashboardTopBar from '@/components/topbar/page'
@@ -24,9 +26,11 @@ const coursesList = [
     // Add more courses as needed
   ];
 
-type Schema = z.infer<typeof formSchema>
+
+type Schema = z.infer<typeof formSchema>;
 
 function CreateStore() {
+
     const [loading, setLoading] = useState(false)
     //const { toast } = useToast()
     //const session = useSession();
@@ -64,7 +68,9 @@ function CreateStore() {
         finally {
             setLoading(false)
         }
+
     }
+
 
     return (
         <>
@@ -170,8 +176,9 @@ function CreateStore() {
                                             The Certificate PDF/Image <i>(file should not exceed 4MB)</i>
                                         </FormLabel>
                                         <FormControl>
+
                                             <UploadDropzone
-                                                endpoint='imageUploader'
+                             endpoint='imageUploader'
                                                 onClientUploadComplete={(uploads) => {
                                                     const upload = uploads?.at(-1)
 
@@ -190,6 +197,7 @@ function CreateStore() {
                                                         description: "File should not exceed 4MB"
                                                     })
                                                 }}
+
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -208,6 +216,7 @@ function CreateStore() {
             </div>
         </div></>
     )
+
 }
 
-export default CreateStore
+export default CreateStore;

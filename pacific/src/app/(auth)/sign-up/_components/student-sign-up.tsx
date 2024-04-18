@@ -23,14 +23,19 @@ import {
 } from "@/components/ui/form";
 import { createStudentAccount } from "@/server-actions/creations";
 import { createStudentSchema } from "@/validation/students";
+
 import { useWallet } from "@txnlab/use-wallet";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import algosdk from "algosdk";
 import { createNft } from "../../../../../nft/create_certificate";
-import {UploadButton} from "@/components/uploadthing/uploadthing";
+import { UploadButton } from "@/components/uploadthing/uploadthing";
+import { useUser } from "@/hooks/useUser";
+import { universityCourses } from "@/constants/courses";
 
 const StudentSignUpForm = () => {
   const { activeAddress, signTransactions, sendTransactions } = useWallet();
+  const { universityName } = useUser();
+  console.log(universityName);
   const [fileURL, setFileURL] = useState<string>("");
 
   const form = useForm<z.infer<typeof createStudentSchema>>({
@@ -43,7 +48,6 @@ const StudentSignUpForm = () => {
       courseName: "",
     },
   });
-
 
   const onSubmit = async (values: z.infer<typeof createStudentSchema>) => {
     try {
@@ -61,7 +65,7 @@ const StudentSignUpForm = () => {
       const txn = await createNft({
         creator_address: activeAddress,
         name: values.registrationNumber,
-        asset_url: fileURL
+        asset_url: fileURL,
       });
       const encodedTransaction = algosdk.encodeUnsignedTransaction(txn);
       const signedTxn = await signTransactions([encodedTransaction]);
@@ -69,7 +73,7 @@ const StudentSignUpForm = () => {
       const result = await sendTransactions(signedTxn, waitRoundsToConfirm);
 
       //@ts-ignore
-      const asset_index = result['asset-index'] ?? 1;
+      const asset_index = result["asset-index"] ?? 1;
       const transaction_hash = result.txId;
 
       let data = {
@@ -79,7 +83,7 @@ const StudentSignUpForm = () => {
         universityName: values.universityName,
         courseName: values.courseName,
         asset_index,
-        transaction_hash
+        transaction_hash,
       };
 
       await createStudentAccount(data);
@@ -177,14 +181,11 @@ const StudentSignUpForm = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {/*TO DO : MAP A LIST OF OPTIONS*/}
-                    <SelectItem value="Computer science">
-                      Computer Science
-                    </SelectItem>
-                    <SelectItem value="Electrical Engineering">
-                      Electrical Engineering
-                    </SelectItem>
-                    <SelectItem value="Law">Law</SelectItem>
+                    {universityCourses.map((course, index) => (
+                      <SelectItem key={index} value={course}>
+                        {course}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
