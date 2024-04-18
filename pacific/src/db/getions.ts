@@ -16,18 +16,20 @@ export async function getUserDataFromLogin(
   try {
     const q = query(
       collection(db, "teaching-institution"),
-      where("wallet_address", "==", wallet_address),
+      where("walletAddress", "==", wallet_address),
     );
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.size === 0) {
+      console.log("Not In Teaching Institutions");
       const q2 = query(
         collection(db, "students"),
-        where("wallet_address", "==", wallet_address),
+        where("walletAddress", "==", wallet_address),
       );
       const querySnapshot2 = await getDocs(q2);
 
       if (querySnapshot2.size === 0) {
+        console.log("Not In Student Accounts");
         throw "Account With Wallet Does Not Exist";
       } else {
         return StudentAccount.fromFirebaseDocument(querySnapshot2.docs[0]);
@@ -38,7 +40,7 @@ export async function getUserDataFromLogin(
 
       return new TeachingInstitution(
         institutionDoc.id,
-        institutionData.wallet_address,
+        institutionData.walletAddress,
       );
     }
   } catch (err) {
@@ -170,7 +172,7 @@ export async function getIndexFromDb(serial_no: string): Promise<number | void> 
 
     if (assetSnapshot.size === 0) {
       console.log("Result Empty")
-      return 1757824308;
+      return;
     }
 
     let assetData: any[] = [];

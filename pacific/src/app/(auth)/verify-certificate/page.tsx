@@ -9,6 +9,7 @@ import DashboardTopBar from "@/components/topbar/page";
 import {Certificate} from "@/types/certificate";
 import { getCertificate } from "../../../../nft/get_certificate";
 import {toast} from "sonner";
+import {getUserDataFromLogin} from "@/db/getions";
 
 
 function VerifyCertificate() {
