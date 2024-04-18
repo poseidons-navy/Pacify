@@ -49,10 +49,6 @@ const StudentSignUpForm = () => {
     },
   });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> dddc00671b1522bfc14692caf525607936674be0
   const onSubmit = async (values: z.infer<typeof createStudentSchema>) => {
     try {
       if (!activeAddress) {
@@ -69,11 +65,7 @@ const StudentSignUpForm = () => {
       const txn = await createNft({
         creator_address: activeAddress,
         name: values.registrationNumber,
-<<<<<<< HEAD
-        asset_url: fileURL
-=======
         asset_url: fileURL,
->>>>>>> dddc00671b1522bfc14692caf525607936674be0
       });
       const encodedTransaction = algosdk.encodeUnsignedTransaction(txn);
       const signedTxn = await signTransactions([encodedTransaction]);
@@ -81,11 +73,7 @@ const StudentSignUpForm = () => {
       const result = await sendTransactions(signedTxn, waitRoundsToConfirm);
 
       //@ts-ignore
-<<<<<<< HEAD
-      const asset_index = result['asset-index'] ?? 1;
-=======
       const asset_index = result["asset-index"] ?? 1;
->>>>>>> dddc00671b1522bfc14692caf525607936674be0
       const transaction_hash = result.txId;
 
       let data = {
@@ -95,21 +83,10 @@ const StudentSignUpForm = () => {
         universityName: values.universityName,
         courseName: values.courseName,
         asset_index,
-<<<<<<< HEAD
-        transaction_hash
-      };
-
-      await createStudentAccount(data);
-
-      let password = Math.random().toString(36).slice(-8);
-      await axios.post('/api/email', {password, email: values.email});
-      
-=======
         transaction_hash,
       };
 
       await createStudentAccount(data);
->>>>>>> dddc00671b1522bfc14692caf525607936674be0
       toast.success("Student account has been created successfully");
       form.reset({
         email: "",
@@ -204,22 +181,11 @@ const StudentSignUpForm = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-<<<<<<< HEAD
-                    {/*TO DO : MAP A LIST OF OPTIONS*/}
-                    <SelectItem value="Computer science">
-                      Computer Science
-                    </SelectItem>
-                    <SelectItem value="Electrical Engineering">
-                      Electrical Engineering
-                    </SelectItem>
-                    <SelectItem value="Law">Law</SelectItem>
-=======
                     {universityCourses.map((course, index) => (
                       <SelectItem key={index} value={course}>
                         {course}
                       </SelectItem>
                     ))}
->>>>>>> dddc00671b1522bfc14692caf525607936674be0
                   </SelectContent>
                 </Select>
                 <FormMessage />

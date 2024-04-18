@@ -155,20 +155,33 @@ export async function getStudentsForAUniversity(
  * Gets the asset index from firebase
  * @param serial_no number
  */
-export async function getIndexFromDb(serial_no: string): Promise<number> {
+export async function getIndexFromDb(serial_no: string): Promise<number | void> {
   if (!serial_no) {
     throw new Error("Serial number not provided");
   }
   try {
+    console.log("API", process.env.API_KEY);
+    console.log("Get Index From DB: Serial Number", serial_no, typeof(serial_no))
     const assetIndexQuery = query(
       collection(db, "certificate"),
       where("certificate_serial_number", "==", serial_no),
     );
     const assetSnapshot = await getDocs(assetIndexQuery);
-    const assetData = assetSnapshot.docs.map((doc) => doc.data());
-    console.log(assetData);
+    // const assetData = assetSnapshot.docs.map((doc) => doc.data());
+
+    if (assetSnapshot.size === 0) {
+      console.log("Result Empty")
+      return;
+    }
+
+    let assetData: any[] = [];
+    assetSnapshot.forEach(doc => {
+      assetData.push(doc.data())
+    });
+    console.log("Get Index From DB: Asset Data", assetData);
     return assetData[0].asset_index;
   } catch (e: any) {
+    console.log(e, "OHH SHIT");
     throw new Error("Error occured during retrieving asset_index", e);
   }
 }

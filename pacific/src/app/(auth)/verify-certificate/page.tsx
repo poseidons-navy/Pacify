@@ -5,26 +5,33 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import DashboardTopBar from "@/components/topbar/page";
+// import CertificateDetails from "@/components/certificate-details";
+import {Certificate} from "@/types/certificate";
+import { getCertificate } from "../../../../nft/get_certificate";
+import {toast} from "sonner";
 
 
 function VerifyCertificate() {
   const [{ data, loading }, setcertificates] = useState<{
-    data: Array<Certificate & { creator: Admin | null }>;
+    data: Array<Certificate>;
     loading: boolean;
   }>({
     data: [],
     loading: false,
   });
   const [searchLoading, setSearchLoading] = useState(false);
-  const [search, setSearch] = useState<string>();
+  const [search, setSearch] = useState<string>("");
 
   const handleSearch = async () => {
     setSearchLoading(true);
+    if (search === undefined) {
+      toast.error("insert serial number");
+    }
     await loadStoreData(search);
     setSearchLoading(false);
   };
 
-  const loadStoreData = async (search?: any) => {
+  const loadStoreData = async (serial_number: string) => {
     setcertificates((prev) => {
       return {
         ...prev,
@@ -32,14 +39,14 @@ function VerifyCertificate() {
       };
     });
     try {
-      const certificates = await getcertificates(search);
-
-      setcertificates((prev) => {
-        return {
-          ...prev,
-          data: certificates,
-        };
-      });
+      const certificates = await getCertificate(serial_number);
+      console.log("Certificate", certificates);
+      // setcertificates((prev) => {
+      //   return {
+      //     ...prev,
+      //     data: certificates,
+      //   };
+      // });
     } catch (e) {
       // ignore
     } finally {
@@ -52,11 +59,11 @@ function VerifyCertificate() {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      loadStoreData();
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     loadStoreData();
+  //   })();
+  // }, []);
 
   return (
     <>
@@ -75,30 +82,15 @@ function VerifyCertificate() {
           The certificate will be displayed below :)
         </p>
         <div className="flex flex-col w-full items-center gap-y-5">
-          {data?.map((certificates, i) => {
+          {/* {data?.map((certificates, i) => {
             return (
               <CertificateDetails
                 key={i}
                 certificates={certificates}
                 showRead={true}
               />
-<<<<<<< HEAD
-            )
-          })
-        }
-      </div>
-    </div>
-    </>
-  )
-}
-
-export default VerifyCertificate
-
-
-
-=======
             );
-          })}
+          })} */}
         </div>
       </div>
     </>
@@ -106,4 +98,3 @@ export default VerifyCertificate
 }
 
 export default VerifyCertificate;
->>>>>>> dddc00671b1522bfc14692caf525607936674be0
