@@ -33,7 +33,7 @@ function DashboardTopBar() {
           className="group-hover:text-neutral-100"
           onClick={() => {
             router.push("/");
-           }}
+          }}
         />
       </div>
     </div>
