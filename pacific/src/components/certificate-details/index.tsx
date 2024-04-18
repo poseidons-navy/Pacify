@@ -4,6 +4,7 @@ import React from "react";
 
 function CertificateDetails({
   certificate,
+  
 }: {
   certificate: Record<string, any>;
 }) {
@@ -17,7 +18,12 @@ function CertificateDetails({
           objectFit="cover"
           alt="certificate"
         />
+
+
       </div>
+      {/* Certificate  transaction id*/}
+      <p className="text-white">{certificate.tx_hash}</p>
+    
     </div>
   );
 }

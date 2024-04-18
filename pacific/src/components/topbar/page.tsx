@@ -18,7 +18,9 @@ function DashboardTopBar() {
   return (
     <div
       className={clsx(
+
         "flex flex-row items-center justify-between w-11/12 border-b-[1px] border-b-neutral-50 rounded-lg  px-4 py-6 bg-black text-white mt-1 mb-2",
+
       )}
     >
       <BackButton />
