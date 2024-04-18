@@ -29,13 +29,11 @@ import React, { useState } from "react";
 import algosdk from "algosdk";
 import { createNft } from "../../../../../nft/create_certificate";
 import { UploadButton } from "@/components/uploadthing/uploadthing";
-import { useUser } from "@/hooks/useUser";
 import { universityCourses } from "@/constants/courses";
 
 const StudentSignUpForm = () => {
   const { activeAddress, signTransactions, sendTransactions } = useWallet();
-  const { universityName } = useUser();
-  console.log(universityName);
+
   const [fileURL, setFileURL] = useState<string>("");
 
   const form = useForm<z.infer<typeof createStudentSchema>>({
