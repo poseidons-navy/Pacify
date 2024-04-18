@@ -7,9 +7,9 @@ import { truncateAddress } from "../../utils";
 export const AppBar = () => {
   const { activeAddress } = useWallet();
   return (
-    <div className="flex items-center mr-14  py-3  mx-auto   justify-end w-11/12">
+    <div className="flex items-center mr-14  py-3  mx-auto justify-end w-11/12">
      <WalletPopover side="bottom" align="start" sideOffset={40}>
-        <Button type="button">
+        <Button variant={"outline"} type="button">
           {activeAddress ? truncateAddress(activeAddress) : "connect wallet"}
         </Button>
       </WalletPopover>
