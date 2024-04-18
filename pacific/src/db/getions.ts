@@ -192,6 +192,7 @@ export async function getIndexFromDb(
     throw new Error("Error occured during retrieving asset_index", e);
   }
 }
+
 /**
  * Get index from a registration number
  * @param reg_no string
@@ -267,7 +268,7 @@ export async function getIndexFromPubkey(
   }
 }
 
-export async function getTxIdFromSerial(serial_no: string) {
+export async function getTxIdFromSerial(serial_no: string): Promise<string>{
   try {
     const assetIndexQuery = query(
       collection(db, "certificate"),
@@ -275,6 +276,9 @@ export async function getTxIdFromSerial(serial_no: string) {
     );
     const assetSnapshot = await getDocs(assetIndexQuery);
     const assetData = assetSnapshot.docs.map((doc) => doc.data());
+    if (assetData.length === 0) {
+      throw new Error("No data found");
+    }
     console.log(assetData);
     return assetData[0].transaction_hash;
   } catch (e: any) {

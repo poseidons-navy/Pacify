@@ -54,6 +54,7 @@ Object*/
 
 function CertificateDetails({
   certificate,
+  
 }: {
   certificate: Record<string, any>;
 }) {
@@ -67,8 +68,10 @@ function CertificateDetails({
           objectFit="cover"
           alt="certificate"
         />
-      </div>
 
+      </div>
+      {/* Certificate  transaction id*/}
+      <p className="text-white">{certificate.tx_hash}</p>
       {/* Certificate Details 
       <div className="flex flex-col col-span-4 gap-y-2 w-full">
         <h3 className="w-full text-xl font-semibold">{student_reg_number}</h3>
