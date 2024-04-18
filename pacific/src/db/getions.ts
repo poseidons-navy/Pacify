@@ -186,3 +186,65 @@ export async function getIndexFromDb(serial_no: string): Promise<number | void> 
     throw new Error("Error occured during retrieving asset_index", e);
   }
 }
+/**
+ * Get index from a registration number
+ * @param reg_no string
+ * @returns asset_index(number)
+ */
+export async function getIndexFromReg(reg_no: string): Promise<number>{
+  if (!reg_no) {
+    throw new Error("Serial number not provided");
+  }
+  try {
+    const assetIndexQuery = query(
+      collection(db, "certificate"),
+      where("student_reg_number", "==", reg_no),
+    );
+    const assetSnapshot = await getDocs(assetIndexQuery);
+    const assetData = assetSnapshot.docs.map((doc) => doc.data());
+    console.log(assetData);
+    return assetData[0].asset_index;
+  } catch (e: any) {
+    throw new Error("Error occured during retrieving asset_index", e);
+  }
+}
+/**
+ * Retrieves the registration number from the public key
+ * @param active_address string
+ * @returns reg_no(string)
+ */
+export async function getRegFromPubkey(active_address: string){
+  if (!active_address) {
+    throw new Error("Public key not provided");
+  }
+  try{
+    const assetIndexQuery = query(
+      collection(db, "students"),
+      where("walletAddress", "==", active_address),
+    );
+    const assetSnapshot = await getDocs(assetIndexQuery);
+    const assetData = assetSnapshot.docs.map((doc) => doc.data());
+    console.log(assetData);
+    return assetData[0].registrationNumber;
+  }
+  catch (e: any) {
+    throw new Error("Error occured during retrieving reg_no", e);
+  }
+}
+
+export async function getIndexFromPubkey(receiver_address: string): Promise<number>
+{
+  try{
+    const assetIndexQuery = query(
+      collection(db, "myCertificates"),
+      where("receiver_address", "==", receiver_address),
+    );
+    const assetSnapshot = await getDocs(assetIndexQuery);
+    const assetData = assetSnapshot.docs.map((doc) => doc.data());
+    console.log(assetData);
+    return assetData[0].assetIndex;
+  }
+  catch (e: any) {
+    throw new Error("Error occured during retrieving reg_no", e);
+  }
+}
