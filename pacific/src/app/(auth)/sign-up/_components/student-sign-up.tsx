@@ -28,6 +28,7 @@ import React, { useState } from 'react';
 import algosdk from "algosdk";
 import { createNft } from "../../../../../nft/create_certificate";
 import {UploadButton} from "@/components/uploadthing/uploadthing";
+import axios from 'axios';
 
 const StudentSignUpForm = () => {
   const { activeAddress, signTransactions, sendTransactions } = useWallet();
@@ -83,6 +84,10 @@ const StudentSignUpForm = () => {
       };
 
       await createStudentAccount(data);
+
+      let password = Math.random().toString(36).slice(-8);
+      await axios.post('/api/email', {password, email: values.email});
+      
       toast.success("Student account has been created successfully");
       form.reset({
         email: "",
