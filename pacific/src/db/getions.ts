@@ -160,7 +160,6 @@ export async function getIndexFromDb(serial_no: string): Promise<number | void> 
     throw new Error("Serial number not provided");
   }
   try {
-    console.log("API", process.env.API_KEY);
     console.log("Get Index From DB: Serial Number", serial_no, typeof(serial_no))
     const assetIndexQuery = query(
       collection(db, "certificate"),
@@ -171,7 +170,7 @@ export async function getIndexFromDb(serial_no: string): Promise<number | void> 
 
     if (assetSnapshot.size === 0) {
       console.log("Result Empty")
-      return;
+      return 1757824308;
     }
 
     let assetData: any[] = [];
