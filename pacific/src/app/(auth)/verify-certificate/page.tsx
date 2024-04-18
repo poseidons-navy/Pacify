@@ -8,10 +8,20 @@ import CertificateDetails from "@/components/certificate-details";
 import { getCertificate } from "../../../../nft/get_certificate";
 import { toast } from "sonner";
 
+import { getUserDataFromLogin } from "@/db/getions";
+import { getTxIdFromSerial } from "@/db/getions";
+function VerifyCertificate() {
+  const [certificate, setCertificate] = useState<Record<string, any>>();
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [search, setSearch] = useState<string>("");
+  const [txid, setTxid] = useState<string>("");
+
+
 function VerifyCertificate() {
   const [certificate, setCertificate] = useState<Record<string, any>>();
   const [searchLoading, setSearchLoading] = useState(false);
   const [search, setSearch] = useState<{ serialNumber: string, universityName: string }>({ serialNumber: "", universityName: "" });
+
 
   const handleSearch = () => {
     setSearchLoading(true);
@@ -28,7 +38,19 @@ function VerifyCertificate() {
       console.log(certificate);
 
       setCertificate(certificate);
+
+      
+      //geting the transaction id of the cert creation
+      const txid = await getTxIdFromSerial(serial_number);
+      setTxid(txid);
+      //Adding the transaction id to the certificate object
+      setCertificate(prevState => ({
+        ...prevState,
+        tx_hash: txid,
+      }));
+
       setSearch({ serialNumber: "", universityName: "" });
+
     } catch (e) {
       // ignore
     }
