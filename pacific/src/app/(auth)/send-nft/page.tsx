@@ -12,7 +12,8 @@ import { useWallet } from "@txnlab/use-wallet";
 import algosdk from "algosdk";
 import { toast } from "sonner";
 import { assignCertificate } from "@/server-actions/creations";
-
+import { transferNft } from '../../../../nft/transfer_certificate'
+import { myCertificates } from '@/server-actions/creations'
 const formSchema = z.object({
     wallet_address: z.string(),
 })
@@ -30,8 +31,9 @@ function CreateStore() {
     })
 
     
-
+console.log("this compoent")
     const onSubmit = async (values: Schema) => {
+        console.log("Called this")
         console.log("Values", values)
         setLoading(true)
         try {
@@ -46,22 +48,19 @@ function CreateStore() {
             }
 
             // send NFT
-            const txn = await sendNft({
-                
-            });
+            const txn = await transferNft(activeAddress, values.wallet_address);
             const encodedTransaction = algosdk.encodeUnsignedTransaction(txn);
             const signedTxn = await signTransactions([encodedTransaction]);
             const waitRoundsToConfirm = 4;
             const result = await sendTransactions(signedTxn, waitRoundsToConfirm);
-
+            console.log("result", result)
             //@ts-ignore
+            //TODO: fix this LATER
             const asset_index = result["asset-index"] ?? 1;
             const transaction_hash = result.txId;
 
-            const data = {
-                
-            };
-            await assignCertificate(data);
+            
+            await myCertificates(values.wallet_address, asset_index);
             toast.success("NFT has been sent successfully");
             form.reset({
                 wallet_address: "",
@@ -92,12 +91,12 @@ function CreateStore() {
                             {/* wallet-address */}
                             <FormField
                                 control={form.control}
-                                name='serial_number'
+                                name='wallet_address'
                                 render={({ field }) => {
                                     return (
                                         <FormItem>
                                             <FormLabel>
-                                                Student's Wallet Address
+                                                Student&apos;s Wallet Address
                                             </FormLabel>
                                             <FormControl>
                                                 <Input {...field} placeholder='Wallet Address' type=" number" />
