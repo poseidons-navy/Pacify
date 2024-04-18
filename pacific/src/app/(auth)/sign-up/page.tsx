@@ -1,7 +1,10 @@
+import BackButton from "@/components/back-button";
 import { StudentSignUpForm } from "./_components/student-sign-up";
 import { CardForm } from "@/components/card-form";
 export default function StudentSignUpPage() {
   return (
+    <>
+    <BackButton/>
     <div className="">
       <CardForm
         title={"Create Student Account"}
@@ -10,5 +13,6 @@ export default function StudentSignUpPage() {
         <StudentSignUpForm />
       </CardForm>
     </div>
+    </>
   );
 }

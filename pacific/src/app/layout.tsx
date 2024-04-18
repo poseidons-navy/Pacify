@@ -7,6 +7,7 @@ import "./globals.css";
 import CustomProvider from "./provider";
 
 import { UserProvider } from "@/context/user-provider";
+import NavBar from "@/components/nav-bar";
 const poppins = Poppins({
   variable: "--font-poppins",
   weight: ["300", "400", "500", "700", "900"],
@@ -28,7 +29,10 @@ export default function RootLayout({
       <body className={`${poppins.variable}`}>
         <CustomProvider>
           <UserProvider>
-            <AppBar />
+            <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+              <NavBar />
+              <AppBar />
+            </div>
             {children}
           </UserProvider>
         </CustomProvider>
