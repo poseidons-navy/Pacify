@@ -1,86 +1,46 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Certificate } from "crypto";
 import { PlusIcon, Search } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DashboardTopBar from "@/components/topbar/page";
+import { getCertificate } from "../../../../nft/get_certificate";
+import {toast} from "sonner";
+import CertificateDetails from "@/components/certificate-details";
+
 
 function AdminPage() {
-  const [search, setSearch] = useState<string>();
+  const [certificate, setCertificate] = useState<Record<string, any>>();
   const [searchLoading, setSearchLoading] = useState(false);
+  const [search, setSearch] = useState<string>("");
 
-  const [{ data, loading }, setPublications] = useState<{
-    data: Array<Certificate & { creator: Admin | null }>;
-    loading: boolean;
-  }>({
-    data: [],
-    loading: false,
-  });
-
-  const loadStoreData = async (status?: any) => {
-    setCertificates((prev) => {
-      return {
-        ...prev,
-        loading: true,
-      };
-    });
-    try {
-      const certifications = await getCurrentUserCertificates(
-        search,
-        status == "all" ? undefined : status,
-      );
-
-      setcertificates((prev) => {
-        return {
-          ...prev,
-          data: certifications,
-        };
-      });
-    } catch (e) {
-      // ignore
-    } finally {
-      setPublications((prev) => {
-        return {
-          ...prev,
-          loading: false,
-        };
-      });
-    }
-  };
-
-  const handleChangeStatus = async (value: string) => {
-    await loadStoreData(value);
-  };
-
-  const handleSearch = async () => {
+  const handleSearch = () => {
     setSearchLoading(true);
-    await loadStoreData();
+    if (search === undefined) {
+      toast.error("insert serial number");
+    }
+    loadStoreData(search);
     setSearchLoading(false);
   };
 
-  useEffect(() => {
-    (async () => {
-      loadStoreData();
-    })();
-  }, []);
+  const loadStoreData = async (serial_number: string) => {
+    try {
+      const certificate = await getCertificate(serial_number);
+      console.log(certificate);
+
+      setCertificate(certificate);
+      setSearch("");
+    } catch (e) {
+      // ignore
+    }
+  };
 
   return (
     <>
       <DashboardTopBar />
       <div className="flex flex-col w-11/12 items-center pt-5 gap-y-4">
       <div>
-      <Link href="./sign-up" legacyBehavior>
-          <Button className="mr-4">Create New Student Account</Button>
-        </Link>
       <Link href="./send-nft" legacyBehavior>
           <Button className="mr-4">Send NFT</Button>
         </Link>
@@ -108,51 +68,14 @@ function AdminPage() {
             <Button
               onClick={handleSearch}
               variant={"outline"}
-              isLoading={searchLoading}
             >
               <Search />
             </Button>
           </div>
-          <div className="flex flex-row items-center justify-center gap-x-3">
-            <Select
-              onValueChange={(value) => {
-                console.log("Value", value);
-                handleChangeStatus(value);
-              }}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Choose a status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="draft">Drafts</SelectItem>
-                <SelectItem value="published">Issued</SelectItem>
-                <SelectItem value="archived">Archived</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
         </div>
-
-        {!loading && (
-          <div className="flex flex-col w-full items-center gap-y-5">
-            {data?.map((certificate, i) => {
-              return (
-                <CertificateDetails
-                  key={i}
-                  publication={certificate}
-                  showRead={true}
-                />
-              );
-            })}
-          </div>
-        )}
-        {loading && (
-          <div className="flex flex-col w-full items-center gap-y-5">
-            <div className="w-full rounded-md bg-slate-100 animate-pulse h-[300px] shadow-sm"></div>
-            <div className="w-full rounded-md bg-slate-100 animate-pulse h-[300px] shadow-sm"></div>
-            <div className="w-full rounded-md bg-slate-100 animate-pulse h-[300px] shadow-sm"></div>
-            <div className="w-full rounded-md bg-slate-100 animate-pulse h-[300px] shadow-sm"></div>
-          </div>
-        )}
+        <div className="flex flex-col w-full items-center gap-y-5">
+          {certificate && <CertificateDetails certificate={certificate} />}
+        </div>
       </div>
     </>
   );

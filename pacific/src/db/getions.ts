@@ -49,6 +49,38 @@ export async function getUserDataFromLogin(
   }
 }
 
+export async function getUniversityCertificates(
+  university_name: string,
+): Promise<Certificate[]> {
+  try {
+    const q = query(
+      collection(db, "certificate"),
+      where("university_name", "==", university_name),
+    );
+    const querySnapshot = await getDocs(q);
+
+    let certificates: Certificate[] = [];
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      certificates.push(
+        new Certificate(
+          data.course_name,
+          data.university_name,
+          data.student_reg_number,
+          data.certificate_serial_number,
+          data.certificate_image_url,
+        ),
+      );
+    });
+
+    return certificates;
+  } catch (err) {
+    console.log(err, "OHH SHIT");
+    throw "Could Not Get University's Certificate";
+  }
+}
+
 export async function getStudentCertificates(
   student_reg_number: string,
 ): Promise<Certificate[]> {
