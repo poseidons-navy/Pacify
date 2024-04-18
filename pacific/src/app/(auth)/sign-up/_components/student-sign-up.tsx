@@ -85,12 +85,6 @@ const StudentSignUpForm = () => {
       };
 
       await createStudentAccount(data);
-      var randomstring = Math.random().toString(36).slice(-8);
-
-      await axios.post("/api/email", {
-        password: randomstring,
-        email: values.email
-      });
 
       toast.success("Student account has been created successfully");
       form.reset({

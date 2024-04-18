@@ -126,8 +126,13 @@ export async function assignCertificate(
   }
 }
 
+interface AddStudentWalletToDB {
+    registrationNumber: string;
+    walletAddress: string;
+}
+
 export async function addStudentWalletToDB(
-  values: z.infer<typeof connectWalletSchema>
+  values: AddStudentWalletToDB
 ): Promise<void> {
   const { walletAddress, registrationNumber } = values;
   try {
