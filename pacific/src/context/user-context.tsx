@@ -1,9 +1,10 @@
 import { createContext } from "react";
+import { StudentAccount } from "@/types/student";
+import { TeachingInstitution } from "@/types/teaching-institution";
 export interface ContextType {
-  universityName: string | undefined;
+  data: StudentAccount | TeachingInstitution | undefined;
 }
-
 const defaultContext: ContextType = {
-  universityName: undefined,
+  data: undefined,
 };
 export const UserContext = createContext<ContextType>(defaultContext);
