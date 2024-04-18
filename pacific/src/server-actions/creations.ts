@@ -88,7 +88,7 @@ export async function createStudentAccount(
   }
 }
 
-export async function assignCertificate(
+interface AssignCertificate {
   course_name: string,
   university_name: string,
   student_reg_number: string,
@@ -96,8 +96,22 @@ export async function assignCertificate(
   certificate_image_url: string,
   asset_index: number,
   transaction_hash: string,
+}
+
+export async function assignCertificate(
+  values: AssignCertificate
 ): Promise<void> {
   try {
+    const {
+      course_name,
+      university_name,
+      student_reg_number,
+      certificate_serial_number,
+      certificate_image_url,
+      asset_index,
+      transaction_hash,
+    } = values
+
     await addDoc(collection(db, "certificate"), {
       course_name,
       university_name,
