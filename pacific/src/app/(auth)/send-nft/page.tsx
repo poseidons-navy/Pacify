@@ -92,12 +92,12 @@ function CreateStore() {
                             {/* wallet-address */}
                             <FormField
                                 control={form.control}
-                                name='serial_number'
+                                name='wallet_address'
                                 render={({ field }) => {
                                     return (
                                         <FormItem>
                                             <FormLabel>
-                                                Student's Wallet Address
+                                                Student&apos;s Wallet Address
                                             </FormLabel>
                                             <FormControl>
                                                 <Input {...field} placeholder='Wallet Address' type=" number" />

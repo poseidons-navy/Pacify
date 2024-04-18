@@ -137,7 +137,7 @@ function CreateStore() {
                                     return (
                                         <FormItem>
                                             <FormLabel>
-                                                Student's Registration Number
+                                                Student&apos;s Registration Number
                                             </FormLabel>
                                             <FormControl>
                                                 <Input {...field} placeholder='Reg no' type=" string" />
@@ -184,7 +184,7 @@ function CreateStore() {
                                     return (
                                         <FormItem>
                                             <FormLabel>
-                                                Certificate's Serial Number
+                                                Certificate&apos;s Serial Number
                                             </FormLabel>
                                             <FormControl>
                                                 <Input {...field} placeholder='Serial Number' type=" number" />

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import DashboardTopBar from "@/components/topbar/page";
-// import CertificateDetails from "@/components/certificate-details";
+import CertificateDetails from "@/components/certificate-details";
 import {Certificate} from "@/types/certificate";
 import { getCertificate } from "../../../../nft/get_certificate";
 import {toast} from "sonner";
@@ -69,7 +69,7 @@ function VerifyCertificate() {
   return (
     <>
       <DashboardTopBar />
-      <div className="w-11/12 h-full flex flex-col items-center justify-start gap-y-4 bg-gray-900 p-6 rounded-lg shadow-lg">
+      <div className="w-11/12 h-80 flex flex-col items-center justify-start gap-y-4 bg-gray-900 p-6 rounded-lg shadow-lg">
         <div className="flex flex-row items-center justify-between w-full gap-x-3">
           <Input
             onChange={(e) => setSearch(e.target.value)}
@@ -83,15 +83,15 @@ function VerifyCertificate() {
           The certificate will be displayed below :)
         </p>
         <div className="flex flex-col w-full items-center gap-y-5">
-          {/* {data?.map((certificates, i) => {
+          {data?.map((certificates, i) => {
             return (
               <CertificateDetails
                 key={i}
-                certificates={certificates}
+                certificate={certificates}
                 showRead={true}
               />
             );
-          })} */}
+          })}
         </div>
       </div>
     </>
