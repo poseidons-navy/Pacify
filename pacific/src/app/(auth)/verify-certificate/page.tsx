@@ -61,9 +61,7 @@ function VerifyCertificate() {
           The certificate will be displayed below :
         </p>
         <div className="flex flex-col w-full items-center gap-y-5">
-          {certificate && (
-            <CertificateDetails certificate={certificate} showRead={true} />
-          )}
+          {certificate && <CertificateDetails certificate={certificate} />}
         </div>
       </div>
     </>
