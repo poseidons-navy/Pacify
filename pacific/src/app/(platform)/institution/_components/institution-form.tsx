@@ -16,11 +16,10 @@ import {
 import { createTeachingInstitution } from "@/server-actions/creations";
 import { createInstitutionSchema } from "@/validation/institution";
 import { useWallet } from "@txnlab/use-wallet";
-import {UploadButton} from "@/components/uploadthing/uploadthing";
-import { WalletPopover } from "@/components/wallet-popover";
+import { UploadButton } from "@/components/uploadthing/uploadthing";
 import algosdk from "algosdk";
 import { useFormStatus } from "react-dom";
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import { createNft } from "../../../../../nft/create_certificate";
 const CreateInstitutionForm = () => {
   const form = useForm<z.infer<typeof createInstitutionSchema>>({
@@ -49,22 +48,22 @@ const CreateInstitutionForm = () => {
       const txn = await createNft({
         creator_address: activeAddress,
         name: values.name,
-        asset_url: fileURL
+        asset_url: fileURL,
       });
       const encodedTransaction = algosdk.encodeUnsignedTransaction(txn);
       const signedTxn = await signTransactions([encodedTransaction]);
       const waitRoundsToConfirm = 4;
       const result = await sendTransactions(signedTxn, waitRoundsToConfirm);
-      
+
       //@ts-ignore
-      const asset_index = result['asset-index'] ?? 1;
+      const asset_index = result["asset-index"] ?? 1;
       const transaction_hash = result.txId;
 
       const data = {
         name: values.name,
         walletAddress: activeAddress,
         asset_index,
-        transaction_hash
+        transaction_hash,
       };
       await createTeachingInstitution(data);
       toast.success("the institution has been created successfully");
@@ -97,7 +96,8 @@ const CreateInstitutionForm = () => {
             )}
           />
           <p>Image:</p>
-          <UploadButton 
+          <UploadButton
+            className="ut-button:bg-primary"
             endpoint="imageUploader"
             onClientUploadComplete={(res) => {
               setFileURL(res[0].url);

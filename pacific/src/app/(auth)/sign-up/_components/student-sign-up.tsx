@@ -228,6 +228,7 @@ const StudentSignUpForm = () => {
           />
           <p>Image:</p>
           <UploadButton
+            className="ut-button:bg-primary"
             endpoint="imageUploader"
             onClientUploadComplete={(res) => {
               setFileURL(res[0].url);
