@@ -4,7 +4,6 @@ import { siteConfig } from "../../config/site-config";
 import { Toaster } from "sonner";
 import { AppBar } from "@/components/app-bar";
 import "./globals.css";
-import "@uploadthing/react/styles.css";
 import CustomProvider from "./provider";
 
 import { UserProvider } from "@/context/user-provider";

@@ -16,8 +16,8 @@ export class StudentAccount {
         const studentData = doc.data();
         return new StudentAccount(
             doc.id, 
-            studentData.university_name, 
-            studentData.course_name,
+            studentData.universityName, 
+            studentData.courseName,
             studentData.name
         );
     }

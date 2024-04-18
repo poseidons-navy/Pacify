@@ -19,7 +19,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <UserContext.Provider
       value={{
-        universityName: data?.name,
+        data,
       }}
     >
       {children}
