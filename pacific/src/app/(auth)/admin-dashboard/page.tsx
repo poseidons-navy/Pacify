@@ -1,5 +1,4 @@
 "use client";
-//import CertificateDetails from '@/components/book-details'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,8 +9,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Certificate } from "crypto";
-//import { getCurrentUserPublications } from '@/server/publication';
-//import { Publication, User } from '@prisma/client';
 import { PlusIcon, Search } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -80,11 +77,16 @@ function AdminPage() {
     <>
       <DashboardTopBar />
       <div className="flex flex-col w-11/12 items-center pt-5 gap-y-4">
+        <Link href="./create-course" legacyBehavior>
+        <Button>
+            Create a new course
+        </Button>
+        </Link>
         <h3 className="font-semibold text-xl w-full">
-          Certificates you have published
+          Certificates you have issued          
         </h3>
 
-        <Link href="/dashboard/store/new" legacyBehavior>
+        <Link href="/assign-certificate" legacyBehavior>
           <div className="flex cursor-pointer shadow-sm hover:bg-slate-100 flex-col items-center justify-center w-full rounded-md h-[100px] ring-1 ring-amber-50 ">
             <PlusIcon />
             <span>Issue a new certificate</span>
@@ -116,8 +118,8 @@ function AdminPage() {
                 <SelectValue placeholder="Choose a status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="draft">Draft</SelectItem>
-                <SelectItem value="published">Published</SelectItem>
+                <SelectItem value="draft">Drafts</SelectItem>
+                <SelectItem value="published">Issued</SelectItem>
                 <SelectItem value="archived">Archived</SelectItem>
               </SelectContent>
             </Select>
@@ -126,11 +128,11 @@ function AdminPage() {
 
         {!loading && (
           <div className="flex flex-col w-full items-center gap-y-5">
-            {data?.map((publication, i) => {
+            {data?.map((certificate, i) => {
               return (
-                <BookDetails
+                <CertificateDetails
                   key={i}
-                  publication={publication}
+                  publication={certificate}
                   showRead={true}
                 />
               );

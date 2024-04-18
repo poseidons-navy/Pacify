@@ -5,7 +5,6 @@ import { db } from "@/db/firebase";
 import z from "zod";
 import {
   connectWalletSchema,
-  createStudentSchema,
 } from "@/validation/students";
 import { createInstitutionSchema } from "@/validation/institution";
 
@@ -24,7 +23,7 @@ export async function createTeachingInstitution(
     await setDoc(doc(db, "teaching-institution", name), {
       walletAddress,
       asset_index,
-      transaction_hash
+      transaction_hash,
     });
   } catch (err) {
     console.log(err, "OHH SHIT");
@@ -61,8 +60,15 @@ export async function createStudentAccount(
   values: CreateStudentAccount,
 ): Promise<void> {
   try {
-    const { email, name, registrationNumber, universityName, courseName, asset_index, transaction_hash } =
-      values;
+    const {
+      email,
+      name,
+      registrationNumber,
+      universityName,
+      courseName,
+      asset_index,
+      transaction_hash,
+    } = values;
     const password = "someRandomBS";
     await setDoc(doc(db, "students", registrationNumber), {
       email,
@@ -72,7 +78,7 @@ export async function createStudentAccount(
       universityName,
       courseName,
       asset_index,
-      transaction_hash
+      transaction_hash,
     });
 
     // Send user email with password
@@ -89,7 +95,7 @@ export async function assignCertificate(
   certificate_serial_number: string,
   certificate_image_url: string,
   asset_index: number,
-  transaction_hash: string
+  transaction_hash: string,
 ): Promise<void> {
   try {
     await addDoc(collection(db, "certificate"), {
@@ -99,7 +105,7 @@ export async function assignCertificate(
       certificate_serial_number,
       certificate_image_url,
       asset_index,
-      transaction_hash
+      transaction_hash,
     });
   } catch (err) {
     console.log(err, "OHH SHIT");

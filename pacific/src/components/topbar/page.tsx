@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 // import { truncateString } from '@/app/helpers/truncate_string'
 //import { LocalStorageKeys } from '@/app/helpers/local_storage_keys'
 import { useRouter } from "next/navigation";
+import BackButton from "../back-button";
 
 function DashboardTopBar() {
   //const session = useSession()
@@ -20,9 +21,10 @@ function DashboardTopBar() {
         "flex flex-row items-center justify-between w-11/12 border-b-[1px] border-b-neutral-50 rounded-lg  px-4 py-6 bg-amber-200 mt-1 mb-2"  
       )}
     >
-      <div className="flex flex-row items-center justify-start w-full space-x-2">
+      <BackButton/>
+      <div className="ml-16 flex flex-row items-center justify-start w-full space-x-2">
         
-        <span className="text-md opacity-70 ">
+        <span className="text-xl decoration-4 font-bold font-mono">
         <p>Welcome to Pacify</p>
         </span>
       </div>

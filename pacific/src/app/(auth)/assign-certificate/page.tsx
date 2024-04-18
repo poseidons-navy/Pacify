@@ -1,14 +1,16 @@
+
 "use client"
-import BackButton from '@/components/back-button'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input, Textarea } from '@/components/ui/input'
+import { Input} from '@/components/ui/input'
+import { Select, SelectTrigger, SelectContent, SelectItem } from '@/components/ui/select'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { z } from 'zod'
-
+import { UploadDropzone } from '@/components/uploadthing/uploadthing'
+import DashboardTopBar from '@/components/topbar/page'
 
 const formSchema = z.object({
     registrationNo: z.string(),
@@ -17,15 +19,21 @@ const formSchema = z.object({
     certificate_url: z.string(),
     
 })
+const coursesList = [
+    { value: 'math', label: 'Mathematics' },
+    { value: 'science', label: 'Science' },
+    { value: 'history', label: 'History' },
+    // Add more courses as needed
+  ];
 
-type Schema = z.infer<typeof formSchema>
+
+type Schema = z.infer<typeof formSchema>;
 
 function CreateStore() {
+
     const [loading, setLoading] = useState(false)
     //const { toast } = useToast()
     //const session = useSession();
-    //const { privateKey } = usePrivateKey();
-    //const [showDialog, setShowDialog] = useState(privateKey == null)
     const form = useForm<Schema>({
         resolver: zodResolver(formSchema)
     })
@@ -36,8 +44,7 @@ function CreateStore() {
         setLoading(true)
         try {
 
-            //if (privateKey == null) throw Error("Deencrypt password")
-
+           
             //const certificates = await createCertificate({
               //  ...values
            // })
@@ -61,12 +68,15 @@ function CreateStore() {
         finally {
             setLoading(false)
         }
+
     }
 
+
     return (
+        <>
+        <DashboardTopBar/>
         <div className="flex flex-col w-full h-full items-center  justify-center ">
             <div className="flex flex-row items-center justify-start w-full">
-                <BackButton />
             </div>
             <div className="flex flex-col w-4/5  h-full items-center justify-center px-5 ">
                 <h3 className='text-xl font-semibold ' >
@@ -105,7 +115,26 @@ function CreateStore() {
                                             Name of the course
                                         </FormLabel>
                                         <FormControl>
-                                            <Input {...field} type="text" placeholder='Course Name' />
+                                        <Select>
+                                            <SelectTrigger>
+                                                {field.value ? (
+                                                coursesList.find((course) => course.value === field.value)?.label
+                                                ) : (
+                                                'Select a course'
+                                                )}
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {coursesList.map((course) => (
+                                                <SelectItem
+                                                    key={course.value}
+                                                    value={course.value}
+                                                    onSelect={() => handleSelectChange(course.value)}
+                                                >
+                                                    {course.label}
+                                                </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                            </Select>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -116,7 +145,7 @@ function CreateStore() {
                                            
 
                         
-                        {/* serial number */}
+                        {/* Serial number */}
                         <FormField
                             control={form.control}
                             name='serial_number'
@@ -124,18 +153,12 @@ function CreateStore() {
                                 return (
                                     <FormItem>
                                         <FormLabel>
-                                            Certificate's serial number 
+                                            Certificate's Serial Number
                                         </FormLabel>
                                         <FormControl>
-                                            <Input {...field} type='number' placeholder='Serial number' onChange={(e) => {
-                                                const v = e.target.value
-                                                if (v !== "") {
-                                                    const value = parseInt(v)
-
-                                                    field.onChange(value)
-                                                }
-                                            }} />
+                                            <Input {...field} placeholder='Serial Number' type=" number" />
                                         </FormControl>
+                     
                                         <FormMessage />
                                     </FormItem>
                                 )
@@ -153,8 +176,9 @@ function CreateStore() {
                                             The Certificate PDF/Image <i>(file should not exceed 4MB)</i>
                                         </FormLabel>
                                         <FormControl>
-                                            {/* <UploadDropzone
-                                                endpoint='imageUploader'
+
+                                            <UploadDropzone
+                             endpoint='imageUploader'
                                                 onClientUploadComplete={(uploads) => {
                                                     const upload = uploads?.at(-1)
 
@@ -173,7 +197,8 @@ function CreateStore() {
                                                         description: "File should not exceed 4MB"
                                                     })
                                                 }}
-                                            /> */}
+
+                                            />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -189,8 +214,9 @@ function CreateStore() {
                     </form>
                 </Form>
             </div>
-        </div>
+        </div></>
     )
+
 }
 
-export default CreateStore
+export default CreateStore;
