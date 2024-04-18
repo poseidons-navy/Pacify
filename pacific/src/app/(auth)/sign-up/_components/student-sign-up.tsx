@@ -85,6 +85,12 @@ const StudentSignUpForm = () => {
       };
 
       await createStudentAccount(data);
+
+      await axios.post("/api/email", {
+        password,
+        email: values.email
+      });
+
       toast.success("Student account has been created successfully");
       form.reset({
         email: "",
