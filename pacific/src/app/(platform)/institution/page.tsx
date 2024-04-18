@@ -1,9 +1,12 @@
 import { CardForm } from "@/components/card-form";
 import { CreateInstitutionForm } from "./_components/institution-form";
+import BackButton from "@/components/back-button";
 
 export default function CreateInstitutionPage() {
   return (
+    <>
     <div className="flex justify-center   h-full ">
+      <BackButton/>
       <CardForm
         title="
       Create Institution
@@ -15,5 +18,6 @@ export default function CreateInstitutionPage() {
         <CreateInstitutionForm />
       </CardForm>
     </div>
+    </>
   );
 }

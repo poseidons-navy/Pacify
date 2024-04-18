@@ -77,13 +77,18 @@ function AdminPage() {
     <>
       <DashboardTopBar />
       <div className="flex flex-col w-11/12 items-center pt-5 gap-y-4">
+      <div>
+      <Link href="./send-nft" legacyBehavior>
+          <Button className="mr-4">Send NFT</Button>
+        </Link>
         <Link href="./create-course" legacyBehavior>
           <Button>Create a new course</Button>
         </Link>
+      </div>
         <h3 className="font-semibold text-xl w-full">
           Certificates you have issued
         </h3>
-
+        
         <Link href="/assign-certificate" legacyBehavior>
           <div className="flex cursor-pointer shadow-sm hover:bg-slate-100 flex-col items-center justify-center w-full rounded-md h-[100px] ring-1 ring-amber-50 ">
             <PlusIcon />
