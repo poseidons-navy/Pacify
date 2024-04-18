@@ -4,17 +4,19 @@ import { useUser } from "@/hooks/useUser";
 import { TeachingInstitution } from "@/types/teaching-institution";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useWallet } from "@txnlab/use-wallet";
 export const UserProfile = () => {
   const { data: userData } = useUser();
+  const { activeAddress } = useWallet();
+
   if (!userData) {
     return (
-      <div className="text-xs text-center  text-muted-foreground">
+      <div className="text-xs text-center my-4  text-muted-foreground">
         No account data has been found , connnect your wallet and create a
         teaching institution or student account
       </div>
     );
   }
-
   return (
     <div>
       {userData instanceof TeachingInstitution ? (
