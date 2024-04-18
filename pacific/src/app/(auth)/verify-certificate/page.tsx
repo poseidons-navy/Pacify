@@ -80,7 +80,7 @@ function VerifyCertificate() {
           </Button>
         </div>
         <p className="w-full text-left text-neutral-50">
-          The certificate will be displayed below :)
+          The certificate will be displayed below :
         </p>
         <div className="flex flex-col w-full items-center gap-y-5">
           {data?.map((certificates, i) => {

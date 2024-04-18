@@ -30,7 +30,9 @@ async function transferNft(
   receiver_address: string
 ): Promise<algosdk.Transaction> {
   const reg_no = await getRegFromPubkey(receiver_address);
+  console.log("Reg No", reg_no);
   const assetIndex = await getIndexFromReg(reg_no);
+  console.log("Asset Index", assetIndex);
   try {
     const suggestedParams = await algodClient.getTransactionParams().do();
     const xferTxn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({

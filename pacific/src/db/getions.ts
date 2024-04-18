@@ -218,13 +218,15 @@ export async function getRegFromPubkey(active_address: string){
     throw new Error("Public key not provided");
   }
   try{
+    console.log("Active Address", active_address);
     const assetIndexQuery = query(
       collection(db, "students"),
       where("walletAddress", "==", active_address),
     );
     const assetSnapshot = await getDocs(assetIndexQuery);
     const assetData = assetSnapshot.docs.map((doc) => doc.data());
-    console.log(assetData);
+    console.log("Asset data coming", assetData);
+    
     return assetData[0].registrationNumber;
   }
   catch (e: any) {
