@@ -4,8 +4,8 @@ import { useUser } from "@/hooks/useUser";
 import { TeachingInstitution } from "@/types/teaching-institution";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useWallet } from "@txnlab/use-wallet";
 import { StudentCertificates } from "./student-certificates";
+
 export const UserProfile = () => {
   const { data: userData } = useUser();
 

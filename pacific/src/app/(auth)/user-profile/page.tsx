@@ -1,36 +1,8 @@
-"use client"
-import { Button } from "@/components/ui/button";
-import React from "react";
-import Link from "next/link";
 import { UserProfile } from "./_components/user-profile";
 import DashboardTopBar from "@/components/topbar/page";
-import { useWallet } from "@txnlab/use-wallet";
-import {toast} from "sonner";
-import {optInToReceiveNft} from "../../../../nft/transfer_certificate";
-import algosdk from "algosdk";
+import OptInButton from "./optin";
 
-
-function ProfilePage() {
-  const { activeAddress, signTransactions, sendTransactions } = useWallet();
-  async function optIn() {
-    try {
-      if (!activeAddress) {
-        toast.error("please connect your wallet");
-        return;
-      }
-
-      // Create NFT
-      const txn = await optInToReceiveNft(activeAddress);
-      const encodedTransaction = algosdk.encodeUnsignedTransaction(txn);
-      const signedTxn = await signTransactions([encodedTransaction]);
-      const waitRoundsToConfirm = 4;
-      const result = await sendTransactions(signedTxn, waitRoundsToConfirm);
-    } catch (error) {
-      toast.error("Unable to opt in");
-    }
-  }
-
-
+async function ProfilePage() {
   return (
     <>
       <DashboardTopBar />
@@ -39,7 +11,7 @@ function ProfilePage() {
           {/*<Link href="./verify-certificate" legacyBehavior>
             <Button>View certificates</Button>
           </Link>*/}
-          <Button onClick={optIn}>Opt in</Button>
+          <OptInButton />
         </div>
         {/* Profile */}
         <UserProfile />

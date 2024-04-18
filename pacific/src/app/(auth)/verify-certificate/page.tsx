@@ -1,14 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-//import { getcertificates } from '@/server-actions/certificates';
 import { Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import DashboardTopBar from "@/components/topbar/page";
 import CertificateDetails from "@/components/certificate-details";
-import { Certificate } from "@/types/certificate";
 import { getCertificate } from "../../../../nft/get_certificate";
 import { toast } from "sonner";
+
 import { getUserDataFromLogin } from "@/db/getions";
 import { getTxIdFromSerial } from "@/db/getions";
 function VerifyCertificate() {
@@ -16,12 +15,20 @@ function VerifyCertificate() {
   const [searchLoading, setSearchLoading] = useState(false);
   const [search, setSearch] = useState<string>("");
   const [txid, setTxid] = useState<string>("");
+
+
+function VerifyCertificate() {
+  const [certificate, setCertificate] = useState<Record<string, any>>();
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [search, setSearch] = useState<{ serialNumber: string, universityName: string }>({ serialNumber: "", universityName: "" });
+
+
   const handleSearch = () => {
     setSearchLoading(true);
     if (search === undefined) {
       toast.error("insert serial number");
     }
-    loadStoreData(search);
+    loadStoreData(search.serialNumber);
     setSearchLoading(false);
   };
 
@@ -31,7 +38,8 @@ function VerifyCertificate() {
       console.log(certificate);
 
       setCertificate(certificate);
-      setSearch("");
+
+      
       //geting the transaction id of the cert creation
       const txid = await getTxIdFromSerial(serial_number);
       setTxid(txid);
@@ -40,16 +48,13 @@ function VerifyCertificate() {
         ...prevState,
         tx_hash: txid,
       }));
+
+      setSearch({ serialNumber: "", universityName: "" });
+
     } catch (e) {
       // ignore
     }
   };
-
-  // useEffect(() => {
-  //   (async () => {
-  //     loadStoreData();
-  //   })();
-  // }, []);
 
   return (
     <>
@@ -57,8 +62,13 @@ function VerifyCertificate() {
       <div className="w-11/12 h-80 flex flex-col items-center justify-start gap-y-4 bg-gray-900 p-6 rounded-lg shadow-lg">
         <div className="flex flex-row items-center justify-between w-full gap-x-3">
           <Input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={search.universityName}
+            onChange={(e) => setSearch({ ...search, universityName: e.target.value })}
+            placeholder="Enter University Name"
+          />
+          <Input
+            value={search.serialNumber}
+            onChange={(e) => setSearch({ ...search, serialNumber: e.target.value })}
             placeholder="Search for certificate by serial number..."
           />
           <Button onClick={handleSearch}>
