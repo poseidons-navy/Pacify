@@ -1,6 +1,9 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import { Certificate } from "@/types/certificate";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 function CertificateDetails({
   certificate,
@@ -22,8 +25,9 @@ function CertificateDetails({
 
       </div>
       {/* Certificate  transaction id*/}
-      <p className="text-white">{certificate.tx_hash}</p>
-    
+      <Button variant={"secondary"}>
+        <Link href={`https://app.dappflow.org/explorer/transaction/${certificate.tx_hash}`}>View Transaction</Link>
+      </Button>
     </div>
   );
 }
