@@ -40,7 +40,7 @@ function VerifyCertificate() {
   return (
     <>
       <DashboardTopBar />
-      <div className="w-11/12 h-80 flex flex-col items-center justify-start gap-y-4 bg-black p-6 rounded-lg shadow-lg">
+      <div className="w-11/12 h-fit  transition-all flex flex-col items-center justify-start gap-y-4 bg-black p-6 rounded-lg shadow-lg">
         <div className="flex flex-row items-center justify-between w-full gap-x-3">
           <Input
             value={search.universityName}
