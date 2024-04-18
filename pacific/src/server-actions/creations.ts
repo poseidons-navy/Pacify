@@ -3,20 +3,18 @@ import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/db/firebase";
 
 import z from "zod";
-import {
-  connectWalletSchema,
-} from "@/validation/students";
+import { connectWalletSchema } from "@/validation/students";
 import { createInstitutionSchema } from "@/validation/institution";
 
 interface CreateTeachingInstitution {
-  name: string,
-  walletAddress: string,
-  asset_index: number,
-  transaction_hash: string
+  name: string;
+  walletAddress: string;
+  asset_index: number;
+  transaction_hash: string;
 }
 
 export async function createTeachingInstitution(
-  values: CreateTeachingInstitution,
+  values: CreateTeachingInstitution
 ): Promise<void> {
   const { name, walletAddress, asset_index, transaction_hash } = values;
   try {
@@ -33,7 +31,7 @@ export async function createTeachingInstitution(
 
 export async function createCourse(
   name: string,
-  university: string,
+  university: string
 ): Promise<void> {
   try {
     await addDoc(collection(db, "course"), {
@@ -47,17 +45,17 @@ export async function createCourse(
 }
 
 interface CreateStudentAccount {
-  email: string,
-  name: string, 
-  registrationNumber: string,
-  universityName: string,
-  courseName: string,
-  asset_index: number,
-  transaction_hash: string
+  email: string;
+  name: string;
+  registrationNumber: string;
+  universityName: string;
+  courseName: string;
+  asset_index: number;
+  transaction_hash: string;
 }
 
 export async function createStudentAccount(
-  values: CreateStudentAccount,
+  values: CreateStudentAccount
 ): Promise<void> {
   try {
     const {
@@ -95,7 +93,7 @@ export async function assignCertificate(
   certificate_serial_number: string,
   certificate_image_url: string,
   asset_index: number,
-  transaction_hash: string,
+  transaction_hash: string
 ): Promise<void> {
   try {
     await addDoc(collection(db, "certificate"), {
@@ -114,7 +112,7 @@ export async function assignCertificate(
 }
 
 export async function addStudentWalletToDB(
-  values: z.infer<typeof connectWalletSchema>,
+  values: z.infer<typeof connectWalletSchema>
 ): Promise<void> {
   const { walletAddress, registrationNumber } = values;
   try {
@@ -124,5 +122,18 @@ export async function addStudentWalletToDB(
   } catch (err) {
     console.log(err, "OHH SHIT");
     throw "Could Not Add Student's Wallet";
+  }
+}
+export async function myCertificates(
+  receiver_address: string,
+  assetIndex: number
+) {
+  try {
+    await updateDoc(doc(db, "myCertificates", receiver_address), {
+      assetIndex,
+    });
+  } catch (err) {
+    console.log(err, "OHH SHIT");
+    throw "Could Not insert transfered certificate";
   }
 }
