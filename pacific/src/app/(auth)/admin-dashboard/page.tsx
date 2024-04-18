@@ -78,12 +78,10 @@ function AdminPage() {
       <DashboardTopBar />
       <div className="flex flex-col w-11/12 items-center pt-5 gap-y-4">
         <Link href="./create-course" legacyBehavior>
-        <Button>
-            Create a new course
-        </Button>
+          <Button>Create a new course</Button>
         </Link>
         <h3 className="font-semibold text-xl w-full">
-          Certificates you have issued          
+          Certificates you have issued
         </h3>
 
         <Link href="/assign-certificate" legacyBehavior>
