@@ -18,25 +18,24 @@ function DashboardTopBar() {
   return (
     <div
       className={clsx(
-        "flex flex-row items-center justify-between w-11/12 border-b-[1px] border-b-neutral-50 rounded-lg  px-4 py-6 bg-amber-200 mt-2.5 mb-2"  
+
+        "flex flex-row items-center justify-between w-11/12 border-b-[1px] border-b-neutral-50 rounded-lg  px-4 py-6 bg-black text-white mt-1 mb-2",
+
       )}
     >
-      <BackButton/>
+      <BackButton />
       <div className="ml-16 flex flex-row items-center justify-start w-full space-x-2">
-        
         <span className="text-xl decoration-4 font-bold font-mono">
-        <p>Welcome to Pacify</p>
+          <p>Welcome to Pacify</p>
         </span>
       </div>
 
       <div className="flex flex-row items-center justify-center cursor-pointer hover:bg-neutral-400 group p-2 rounded-full">
-        
         <LogOut
           className="group-hover:text-neutral-100"
           onClick={() => {
             router.push("/");
           }}
-       
         />
       </div>
     </div>
