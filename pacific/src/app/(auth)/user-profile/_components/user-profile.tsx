@@ -4,7 +4,6 @@ import { useUser } from "@/hooks/useUser";
 import { TeachingInstitution } from "@/types/teaching-institution";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { StudentCertificates } from "./student-certificates";
 
 export const UserProfile = () => {
   const { data: userData } = useUser();
@@ -79,7 +78,6 @@ export const UserProfile = () => {
               defaultValue={userData.course_name}
             />
           </div>
-          <StudentCertificates reg_no={userData.reg_number} />
         </div>
       )}
     </div>
